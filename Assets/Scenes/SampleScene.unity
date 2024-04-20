@@ -2310,6 +2310,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2360,7 +2361,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2391,6 +2392,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c45d938b5338b746830736ed67bcc7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPos: {fileID: 166181367}
 --- !u!1001 &586502001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18112,6 +18126,7 @@ GameObject:
   - component: {fileID: 1175181599}
   - component: {fileID: 1175181600}
   - component: {fileID: 1175181601}
+  - component: {fileID: 1175181602}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -18147,6 +18162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemManager: {fileID: 0}
+  tileManager: {fileID: 0}
 --- !u!114 &1175181601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18165,6 +18181,20 @@ MonoBehaviour:
   - {fileID: 963128493471464602, guid: 5eaa419512dedd84491af895c9bcf14d, type: 3}
   - {fileID: 2437094095374021149, guid: ffbfdf2818f9cd24bb9c7f7842d79278, type: 3}
   - {fileID: 962600301690847427, guid: a695596f0b7a46b4f921bb5b2fb41fc7, type: 3}
+--- !u!114 &1175181602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175181598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534eb62675333994db44465744007f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiles: {fileID: 925006685}
+  bedTile: {fileID: 11400000, guid: 303f37a890ad9544aa2e30c98167acde, type: 2}
 --- !u!1001 &1256042509
 PrefabInstance:
   m_ObjectHideFlags: 0

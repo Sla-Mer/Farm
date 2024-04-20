@@ -11,6 +11,19 @@ public class Player : MonoBehaviour
         inventory = new Inventory(24);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            Vector3Int pos = new Vector3Int((int)transform.position.x,
+                (int)transform.position.y,
+                0);
+            if(GameManager.instance.tileManager.IsInteractable(pos))
+            {
+                GameManager.instance.tileManager.SetInteracted(pos);
+            }
+        }
+    }
     public void DropItem(Collectable item)
     {
         Vector2 spawnPosition = transform.position;
