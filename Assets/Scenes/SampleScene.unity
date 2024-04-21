@@ -18175,12 +18175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8482604ae1ce3e84390f6b2135feca71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectableItems:
-  - {fileID: 2440818210741960977, guid: 78d9255f4d532464c9fd0e21565a8a9c, type: 3}
-  - {fileID: 7592269367164899019, guid: b17b6806486a8904998f421af7ee1d73, type: 3}
-  - {fileID: 963128493471464602, guid: 5eaa419512dedd84491af895c9bcf14d, type: 3}
-  - {fileID: 2437094095374021149, guid: ffbfdf2818f9cd24bb9c7f7842d79278, type: 3}
-  - {fileID: 962600301690847427, guid: a695596f0b7a46b4f921bb5b2fb41fc7, type: 3}
+  items:
+  - {fileID: 559121688776571763, guid: 78d9255f4d532464c9fd0e21565a8a9c, type: 3}
+  - {fileID: 4910946706937380754, guid: b17b6806486a8904998f421af7ee1d73, type: 3}
+  - {fileID: 8530441247795400743, guid: 5eaa419512dedd84491af895c9bcf14d, type: 3}
+  - {fileID: 3258022036197876819, guid: ffbfdf2818f9cd24bb9c7f7842d79278, type: 3}
+  - {fileID: 7075051191357988872, guid: a695596f0b7a46b4f921bb5b2fb41fc7, type: 3}
 --- !u!114 &1175181602
 MonoBehaviour:
   m_ObjectHideFlags: 0

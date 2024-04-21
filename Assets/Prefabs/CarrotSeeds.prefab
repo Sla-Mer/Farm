@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 980299879403464377}
   - component: {fileID: 2662205006522027189}
   - component: {fileID: 7858145278349793289}
-  - component: {fileID: 2440818210741960977}
   - component: {fileID: 6839944642782036103}
+  - component: {fileID: 2440818210741960977}
+  - component: {fileID: 559121688776571763}
   m_Layer: 0
   m_Name: CarrotSeeds
   m_TagString: CarrotSeeds
@@ -132,21 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4481666, y: 0.5781299}
   m_EdgeRadius: 0
---- !u!114 &2440818210741960977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2052444550790139143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff9e61ba63919342a4567169926e69d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
-  icon: {fileID: -1508933300, guid: 2375ee378b673c64687624073dce3513, type: 3}
-  rb2d: {fileID: 0}
 --- !u!50 &6839944642782036103
 Rigidbody2D:
   serializedVersion: 4
@@ -174,3 +160,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2440818210741960977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052444550790139143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff9e61ba63919342a4567169926e69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &559121688776571763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052444550790139143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13df89477388ad94e89803e8621f5f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 36ecf42ff6a2ee44c8702d50d2422749, type: 2}
+  rb2d: {fileID: 0}

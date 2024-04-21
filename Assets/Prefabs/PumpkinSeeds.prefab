@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1825431639869292514}
   - component: {fileID: 1033149302397271139}
   - component: {fileID: 7191424936849460510}
-  - component: {fileID: 2437094095374021149}
   - component: {fileID: 5773304451135727096}
+  - component: {fileID: 2437094095374021149}
+  - component: {fileID: 3258022036197876819}
   m_Layer: 0
   m_Name: PumpkinSeeds
   m_TagString: Untagged
@@ -132,21 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.38921404, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &2437094095374021149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3152980971587011555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff9e61ba63919342a4567169926e69d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 3
-  icon: {fileID: 1968942276, guid: 2375ee378b673c64687624073dce3513, type: 3}
-  rb2d: {fileID: 0}
 --- !u!50 &5773304451135727096
 Rigidbody2D:
   serializedVersion: 4
@@ -174,3 +160,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2437094095374021149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152980971587011555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff9e61ba63919342a4567169926e69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3258022036197876819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152980971587011555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13df89477388ad94e89803e8621f5f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: c1fc6a05e86151d4c976b35781171a58, type: 2}
+  rb2d: {fileID: 0}

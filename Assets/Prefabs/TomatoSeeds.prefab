@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 8050022361013000006}
   - component: {fileID: 8052648139814577410}
   - component: {fileID: 6259286475455874520}
-  - component: {fileID: 962600301690847427}
   - component: {fileID: -1264515525078542291}
+  - component: {fileID: 962600301690847427}
+  - component: {fileID: 7075051191357988872}
   m_Layer: 0
   m_Name: TomatoSeeds
   m_TagString: TomatoSeeds
@@ -132,21 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4036064, y: 0.5424131}
   m_EdgeRadius: 0
---- !u!114 &962600301690847427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6517104639413008053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff9e61ba63919342a4567169926e69d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
-  icon: {fileID: 1722228255, guid: 2375ee378b673c64687624073dce3513, type: 3}
-  rb2d: {fileID: 0}
 --- !u!50 &-1264515525078542291
 Rigidbody2D:
   serializedVersion: 4
@@ -174,3 +160,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &962600301690847427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517104639413008053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff9e61ba63919342a4567169926e69d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7075051191357988872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517104639413008053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13df89477388ad94e89803e8621f5f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 75cc8a6117cc790468c36a8330cb4394, type: 2}
+  rb2d: {fileID: 0}

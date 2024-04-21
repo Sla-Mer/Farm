@@ -2,31 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Item))]
 public class Collectable : MonoBehaviour
 {
-    public CollectableType type;
-    public Sprite icon;
-
-    public Rigidbody2D rb2d;
-
-    private void Awake()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Player player = collision.GetComponent<Player>();
 
         if (player)
         {
-            player.inventory.Add(this);
-            Destroy(this.gameObject);
+            Item item = GetComponent<Item>();
+            if (item != null)
+            {
+                player.inventory.Add(item);
+                Destroy(this.gameObject);
+            }
         }
     }
-}
-
-
-public enum CollectableType
-{
-    NONE, CARROT_SEED, TOMATO_SEED, PUMPKIN_SEED, POTATO_SEED, MELON_SEED
 }
