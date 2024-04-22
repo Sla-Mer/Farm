@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        inventory = new Inventory(24);
+        inventory = new Inventory(27);
     }
 
     private void Update()
