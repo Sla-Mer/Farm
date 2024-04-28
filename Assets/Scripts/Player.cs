@@ -43,4 +43,12 @@ public class Player : MonoBehaviour
         // При желании можно добавить силу к предмету
         droppedItem.rb2d.AddForce(randomOnCircle.normalized * 0.5f, ForceMode2D.Impulse);
     }
+
+    public void DropItem(Item item, int numToDrop)
+    {
+        for(int i = 0; i < numToDrop; i++)
+        {
+            DropItem(item);
+        }
+    }
 }
