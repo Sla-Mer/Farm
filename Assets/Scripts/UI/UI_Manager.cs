@@ -26,14 +26,7 @@ public class UI_Manager : MonoBehaviour
         {
             ToggleInventoryUI();
         }
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            dragSingle = true;
-        }
-        else
-        {
-            dragSingle = false;
-        }
+        dragSingle = Input.GetKey(KeyCode.LeftShift);
     }
 
     public void RefreshInventoryUI(string inventoryName)

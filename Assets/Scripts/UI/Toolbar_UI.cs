@@ -8,6 +8,8 @@ public class Toolbar_UI : MonoBehaviour
 
     private Slot_UI selectedSlot;
 
+    public int toolbarSlotsCount;
+
     private void Start()
     {
         SelectSlot(0);
@@ -19,7 +21,7 @@ public class Toolbar_UI : MonoBehaviour
     }
     public void SelectSlot(int index)
     {
-        if(toolbarSlots.Count == 9)
+        if(toolbarSlots.Count == toolbarSlotsCount)
         {
             if (selectedSlot != null)
             {

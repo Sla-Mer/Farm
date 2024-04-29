@@ -22384,6 +22384,7 @@ MonoBehaviour:
   - {fileID: 2029230344}
   - {fileID: 1270707544}
   - {fileID: 644758656}
+  toolbarSlotsCount: 9
 --- !u!114 &1296561902
 MonoBehaviour:
   m_ObjectHideFlags: 0
