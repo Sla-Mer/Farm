@@ -21,9 +21,21 @@ public class Inventory
             maxAllowed = 50;
         }
 
-        public bool CanAddItem()
+        public bool IsEmpty
         {
-            if(count < maxAllowed)
+            get
+            {
+                if(itemName == "" && count == 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+        public bool CanAddItem(string itemName)
+        {
+            if(this.itemName == itemName && count < maxAllowed)
             {
                 return true;
             }
@@ -35,6 +47,14 @@ public class Inventory
             this.itemName = item.data.itemName;
             this.icon = item.data.icon;
             count++;
+        }
+
+        public void AddItem(string itemName, Sprite icon, int maxAllowed)
+        {
+            this.itemName = itemName;
+            this.icon = icon;
+            count++;
+            this.maxAllowed = maxAllowed;
         }
 
         public void RemoveItem()
@@ -66,7 +86,7 @@ public class Inventory
     {
         foreach(Slot slot in slots)
         {
-            if(slot.itemName == item.data.itemName && slot.CanAddItem())
+            if(slot.itemName == item.data.itemName && slot.CanAddItem(item.data.itemName))
             {
                 slot.AddItem(item);
                 return;
@@ -97,5 +117,37 @@ public class Inventory
                 Remove(index);
             }
         }
+    }
+
+    public void MoveSlot(int fromIndex, int toIndex, Inventory toInventory, int numToMove = 1)
+    {
+        Slot fromSlot = slots[fromIndex];
+        Slot toSlot = toInventory.slots[toIndex];
+
+        if(toSlot.IsEmpty || toSlot.CanAddItem(fromSlot.itemName))
+        {
+            for(int i = 0; i < numToMove; i++)
+            {
+                toSlot.AddItem(fromSlot.itemName, fromSlot.icon, fromSlot.maxAllowed);
+                fromSlot.RemoveItem();
+            }
+        }
+    }
+
+
+    public Inventory CopyFrom(Inventory other)
+    {
+        Inventory newInventory = new Inventory(other.slots.Count); // Make new inventory 
+
+        // Copy elements from other inventory
+        for (int i = 0; i < other.slots.Count; i++)
+        {
+            newInventory.slots[i].itemName = other.slots[i].itemName;
+            newInventory.slots[i].count = other.slots[i].count;
+            newInventory.slots[i].maxAllowed = other.slots[i].maxAllowed;
+            newInventory.slots[i].icon = other.slots[i].icon;
+        }
+        Debug.Log("First in new - " + newInventory.slots[0].itemName);
+        return newInventory;
     }
 }

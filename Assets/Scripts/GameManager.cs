@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
 
     public SavesManager saveManager;
 
+    public InventoryManager inventoryManager;
+
+    public UI_Manager uiManager;
+
     public Player player;
 
     private void Awake()
@@ -33,17 +37,28 @@ public class GameManager : MonoBehaviour
         tileManager = GetComponent<TileManager>();
 
         saveManager = GetComponent<SavesManager>();
+
+        inventoryManager = GetComponent<InventoryManager>();
+
+        uiManager = GetComponent<UI_Manager>();
+
+        player = FindObjectOfType<Player>();
     }
 
-    // Сохранение игры
     public void SaveGame()
     {
         if (saveManager != null && player != null && tileManager != null)
         {
             // Получаем измененные тайлы и сохраняем игру
             List<TileData> modifiedTiles = tileManager.GetModifiedTiles();
-            saveManager.SaveGame(modifiedTiles, player.inventory);
+            Inventory backpack = player.inventory.backpack; // Получаем рюкзак по имени
+            Inventory toolbar = player.inventory.toolbar;  // Получаем тулбар по имени
+            saveManager.SaveGame(modifiedTiles, backpack, toolbar); // Сохраняем рюкзак и тулбар
+            Debug.Log("Backpack slots count" + backpack.slots.Count);
+            Debug.Log("Toolbar slots count" + toolbar.slots.Count);
+            Debug.Log("Backpack first slot item: " + backpack.slots[0].itemName);
             Debug.Log("Game saved.");
+
         }
         else
         {
@@ -51,19 +66,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Загрузка игры
+
+
     public void LoadGame()
     {
         if (saveManager != null && player != null)
         {
-            SaveData saveData = saveManager.LoadGame(); // Загружаем данные сохранения
+            SaveData saveData = saveManager.LoadGame(); // Loading save data
             if (saveData != null)
             {
-                // Загружаем инвентарь
-                player.inventory = saveData.inventory;
+                // Loading inventory
+                Inventory backpack = inventoryManager.GetInventoryByName("Backpack"); // Getting backpack
+                Inventory toolbar = inventoryManager.GetInventoryByName("Toolbar"); // Getting toolbar
+             
+                Debug.Log("backpack slots " + backpack.slots.Count);
+                Debug.Log("toolbar slots " + toolbar.slots.Count);
+
+                backpack = backpack.CopyFrom(saveData.backpack);
+                toolbar = toolbar.CopyFrom(saveData.toolbar);
+
+                inventoryManager.backpack = backpack;
+                inventoryManager.toolbar = toolbar;
+
+                Debug.Log("First in backpack " + backpack.slots[0].itemName);
+
                 Debug.Log("Inventory loaded.");
 
-                // Применяем измененные тайлы
+                // Apply changed tiles
                 if (tileManager != null)
                 {
                     tileManager.ApplyModifiedTiles(saveData.modifiedTiles);

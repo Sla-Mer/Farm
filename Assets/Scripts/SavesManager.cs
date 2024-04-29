@@ -20,12 +20,14 @@ public class TileData
 public class SaveData
 {
     public List<TileData> modifiedTiles = new List<TileData>();
-    public Inventory inventory;
+    public Inventory backpack;
+    public Inventory toolbar;
 
-    public SaveData(List<TileData> tiles, Inventory inv)
+    public SaveData(List<TileData> tiles, Inventory backpack, Inventory toolbar)
     {
         modifiedTiles = tiles;
-        inventory = inv;
+        this.backpack = backpack;
+        this.toolbar = toolbar;
     }
 }
 
@@ -49,12 +51,13 @@ public class SavesManager : MonoBehaviour
         savePath = "Saves/save.json";
     }
 
-    public void SaveGame(List<TileData> modifiedTiles, Inventory inventory)
+    public void SaveGame(List<TileData> modifiedTiles, Inventory backpack, Inventory toolbar)
     {
-        SaveData saveData = new SaveData(modifiedTiles, inventory);
-        string json = JsonUtility.ToJson(saveData);
-        File.WriteAllText(savePath, json);
+        SaveData saveData = new SaveData(modifiedTiles, backpack, toolbar); // Создаем объект SaveData с измененными тайлами и инвентарями
+        string json = JsonUtility.ToJson(saveData); // Сериализуем объект SaveData в JSON строку
+        File.WriteAllText(savePath, json); // Записываем JSON строку в файл
     }
+
 
     public SaveData LoadGame()
     {
