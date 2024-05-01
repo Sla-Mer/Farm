@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
         {
             // Получаем измененные тайлы и сохраняем игру
             List<TileData> modifiedTiles = tileManager.GetModifiedTiles();
-            Inventory backpack = player.inventory.backpack; // Получаем рюкзак по имени
-            Inventory toolbar = player.inventory.toolbar;  // Получаем тулбар по имени
+            Inventory backpack = player.inventoryManager.backpack; // Получаем рюкзак по имени
+            Inventory toolbar = player.inventoryManager.toolbar;  // Получаем тулбар по имени
             saveManager.SaveGame(modifiedTiles, backpack, toolbar); // Сохраняем рюкзак и тулбар
             Debug.Log("Backpack slots count" + backpack.slots.Count);
             Debug.Log("Toolbar slots count" + toolbar.slots.Count);

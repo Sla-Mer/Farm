@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Inventory;
 
 public class Toolbar_UI : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Toolbar_UI : MonoBehaviour
             }
             selectedSlot = toolbarSlots[index];
             selectedSlot.SetHighlight(true);
+
+            GameManager.instance.inventoryManager.toolbar.SelectSlot(index);
         }
     }
 

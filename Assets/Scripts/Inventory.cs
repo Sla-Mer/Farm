@@ -72,7 +72,10 @@ public class Inventory
         }
     }
 
+
     public List<Slot> slots = new List<Slot>();
+
+    public Slot selectedSlot = null;
 
     public Inventory(int numSlots)
     {
@@ -134,6 +137,12 @@ public class Inventory
         }
     }
 
+    public void SelectSlot(int index)
+    {
+        if(slots != null && slots.Count > 0){
+            selectedSlot = slots[index];
+        }
+    }
 
     public Inventory CopyFrom(Inventory other)
     {

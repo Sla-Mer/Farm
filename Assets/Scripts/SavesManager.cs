@@ -7,9 +7,9 @@ using UnityEngine;
 public class TileData
 {
     public Vector2Int position;
-    public int tileType;
+    public string tileType;
 
-    public TileData(Vector2Int pos, int type)
+    public TileData(Vector2Int pos, string type)
     {
         position = pos;
         tileType = type;

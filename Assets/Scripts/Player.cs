@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public InventoryManager inventory;
+    public InventoryManager inventoryManager;
 
     private TileManager tileManager;
 
-    
-    private void Awake()
-    {
-        inventory = GetComponent<InventoryManager>();
-    }
     private void Start()
     {
         tileManager = GameManager.instance.tileManager;
@@ -25,9 +20,15 @@ public class Player : MonoBehaviour
             Vector3Int pos = new Vector3Int((int)transform.position.x,
                 (int)transform.position.y,
                 0);
-            if(tileManager.IsInteractable(pos))
+
+            string tileName = tileManager.GetTileName(pos);
+
+            if (!string.IsNullOrWhiteSpace(tileName))
             {
-                tileManager.SetInteracted(pos);
+                if(tileName == "tiles_306" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
+                {
+                    tileManager.SetInteracted(pos);
+                }
             }
         }
     }

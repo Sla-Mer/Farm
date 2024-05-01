@@ -13,25 +13,25 @@ public class TileManager : MonoBehaviour
         
     }
 
-    public bool IsInteractable(Vector3Int position)
-    {
-        TileBase tile = tiles.GetTile(position);
-
-        if(tile != null)
-        {
-            if(tile.name == "tiles_306")
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void SetInteracted(Vector3Int position)
     {
         tiles.SetTile(position, bedTile);
     }
 
+    public string GetTileName(Vector3Int position)
+    {
+        if (tiles != null)
+        {
+            TileBase tile = tiles.GetTile(position);
+
+            if (tile != null)
+            {
+                return tile.name;
+            }
+        }
+
+        return "";
+    }
 
     public List<TileData> GetModifiedTiles()
     {
@@ -48,7 +48,6 @@ public class TileManager : MonoBehaviour
                 TileBase tile = tiles.GetTile(pos);
                 if (tile != null)
                 {
-                    // Проверяем, изменился ли тайл с момента последнего сохранения
                     if (IsTileModified(pos, tile))
                     {
                         modifiedTiles.Add(new TileData(new Vector2Int(x, y), GetTileType(tile)));
@@ -60,35 +59,26 @@ public class TileManager : MonoBehaviour
         return modifiedTiles;
     }
 
-    // Метод для проверки, изменился ли тайл
     private bool IsTileModified(Vector3Int position, TileBase tile)
     {
-        // Здесь вы можете реализовать свою логику для проверки изменений тайла
-        // Например, вы можете хранить предыдущее состояние тайлов и сравнивать их с текущим состоянием
-        // В этом примере я просто считаю тайл измененным, если его тип является GrassTile
 
-        if (tile.name == "tiles_451") // Замените на свой тип тайла, если он отличается
+        if (tile.name == "tiles_451")
         {
-            // Здесь можно выполнить дополнительные проверки на изменение тайла, если необходимо
             return true;
         }
 
         return false;
     }
 
-    // Метод для получения типа тайла
-    private int GetTileType(TileBase tile)
+    private string GetTileType(TileBase tile)
     {
-        // Здесь вы можете определить тип тайла
-        // Например, вы можете присвоить каждому типу тайла уникальный идентификатор
-        // В этом примере я просто возвращаю 0 для GrassTile
 
-        if (tile.name == "tiles_451") // Замените на свой тип тайла, если он отличается
+        if (tile.name == "tiles_451") 
         {
-            return 451; // Пример типа для GrassTile
+            return "tiles_451"; 
         }
 
-        return 306; // Если тип неизвестен или не определен
+        return "tiles_306"; 
     }
     public void ApplyModifiedTiles(List<TileData> modifiedTiles)
     {
