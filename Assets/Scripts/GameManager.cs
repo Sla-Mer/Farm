@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public Player player;
 
+    public MenuController menuController;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         inventoryManager = GetComponent<InventoryManager>();
 
         uiManager = GetComponent<UI_Manager>();
+
+        menuController = GetComponent<MenuController>();
 
         player = FindObjectOfType<Player>();
     }
