@@ -50,14 +50,11 @@ public class SavesManager : MonoBehaviour
 
         savePath = "Saves/save.json";
     }
-
-    public void SaveGame(List<TileData> modifiedTiles, Inventory backpack, Inventory toolbar)
+    public void SaveGame(SaveData saveData)
     {
-        SaveData saveData = new SaveData(modifiedTiles, backpack, toolbar); // Создаем объект SaveData с измененными тайлами и инвентарями
-        string json = JsonUtility.ToJson(saveData); // Сериализуем объект SaveData в JSON строку
-        File.WriteAllText(savePath, json); // Записываем JSON строку в файл
+        string json = JsonUtility.ToJson(saveData);
+        File.WriteAllText(savePath, json);
     }
-
 
     public SaveData LoadGame()
     {

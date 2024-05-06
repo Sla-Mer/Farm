@@ -143,20 +143,4 @@ public class Inventory
             selectedSlot = slots[index];
         }
     }
-
-    public Inventory CopyFrom(Inventory other)
-    {
-        Inventory newInventory = new Inventory(other.slots.Count); // Make new inventory 
-
-        // Copy elements from other inventory
-        for (int i = 0; i < other.slots.Count; i++)
-        {
-            newInventory.slots[i].itemName = other.slots[i].itemName;
-            newInventory.slots[i].count = other.slots[i].count;
-            newInventory.slots[i].maxAllowed = other.slots[i].maxAllowed;
-            newInventory.slots[i].icon = other.slots[i].icon;
-        }
-        Debug.Log("First in new - " + newInventory.slots[0].itemName);
-        return newInventory;
-    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
@@ -8,9 +9,14 @@ public class Player : MonoBehaviour
 
     private TileManager tileManager;
 
+    public GameObject bedPrefab;
+
+    private GardenManager gardenManager;
+
     private void Start()
     {
         tileManager = GameManager.instance.tileManager;
+        gardenManager = GameManager.instance.gardenManager;
     }
 
     private void Update()
@@ -25,12 +31,31 @@ public class Player : MonoBehaviour
 
             if (!string.IsNullOrWhiteSpace(tileName))
             {
-                if(tileName == "tiles_306" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
+                if (tileName == "tiles_306" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
                 {
                     tileManager.SetInteracted(pos);
                 }
+                else if (tileName == "tiles_451" && inventoryManager.toolbar.selectedSlot.itemName == "Shovel")
+                {
+                    // Создаем грядку с использованием менеджера грядок
+                    gardenManager.CreateGardenBed(pos);
+                }
             }
         }
+       
+    }
+
+    private void CreateBed(Vector3Int pos)
+    {
+        // Размер тайла в мировых координатах
+        Vector3 tileSize = new Vector3(1f, 1f, 0f); // Предполагается, что размер тайла 1x1
+
+        // Позиция для размещения грядки в центре тайла
+        Vector3 spawnPosition = pos + tileSize / 2f;
+
+        // Создание экземпляра префаба грядки
+        GameObject bed = Instantiate(bedPrefab, spawnPosition, Quaternion.identity);
+
     }
     public void DropItem(Item item)
     {

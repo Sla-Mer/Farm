@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public UI_Manager uiManager;
 
+    public GardenManager gardenManager;
+
     public Player player;
 
     public MenuController menuController;
@@ -44,6 +46,8 @@ public class GameManager : MonoBehaviour
 
         uiManager = GetComponent<UI_Manager>();
 
+        gardenManager = GetComponent<GardenManager>();
+
         menuController = GetComponent<MenuController>();
 
         player = FindObjectOfType<Player>();
@@ -53,16 +57,20 @@ public class GameManager : MonoBehaviour
     {
         if (saveManager != null && player != null && tileManager != null)
         {
-            // Получаем измененные тайлы и сохраняем игру
+            // Получаем измененные тайлы
             List<TileData> modifiedTiles = tileManager.GetModifiedTiles();
-            Inventory backpack = player.inventoryManager.backpack; // Получаем рюкзак по имени
-            Inventory toolbar = player.inventoryManager.toolbar;  // Получаем тулбар по имени
-            saveManager.SaveGame(modifiedTiles, backpack, toolbar); // Сохраняем рюкзак и тулбар
-            Debug.Log("Backpack slots count" + backpack.slots.Count);
-            Debug.Log("Toolbar slots count" + toolbar.slots.Count);
-            Debug.Log("Backpack first slot item: " + backpack.slots[0].itemName);
-            Debug.Log("Game saved.");
 
+            // Получаем инвентари из InventoryManager
+            Inventory backpack = GameManager.instance.inventoryManager.GetInventoryByName("Backpack");
+            Inventory toolbar = GameManager.instance.inventoryManager.GetInventoryByName("Toolbar");
+
+            // Создаем объект SaveData и передаем в него данные
+            SaveData saveData = new SaveData(modifiedTiles, backpack, toolbar);
+
+            // Сохраняем игру
+            saveManager.SaveGame(saveData);
+
+            Debug.Log("Game saved.");
         }
         else
         {
@@ -76,27 +84,16 @@ public class GameManager : MonoBehaviour
     {
         if (saveManager != null && player != null)
         {
-            SaveData saveData = saveManager.LoadGame(); // Loading save data
+            // Загружаем данные сохранения
+            SaveData saveData = saveManager.LoadGame();
+
             if (saveData != null)
             {
-                // Loading inventory
-                Inventory backpack = inventoryManager.GetInventoryByName("Backpack"); // Getting backpack
-                Inventory toolbar = inventoryManager.GetInventoryByName("Toolbar"); // Getting toolbar
-             
-                Debug.Log("backpack slots " + backpack.slots.Count);
-                Debug.Log("toolbar slots " + toolbar.slots.Count);
+                // Применяем данные из сохранения к инвентарям
+                GameManager.instance.inventoryManager.backpack = saveData.backpack;
+                GameManager.instance.inventoryManager.toolbar = saveData.toolbar;
 
-                backpack = backpack.CopyFrom(saveData.backpack);
-                toolbar = toolbar.CopyFrom(saveData.toolbar);
-
-                inventoryManager.backpack = backpack;
-                inventoryManager.toolbar = toolbar;
-
-                Debug.Log("First in backpack " + backpack.slots[0].itemName);
-
-                Debug.Log("Inventory loaded.");
-
-                // Apply changed tiles
+                // Применяем измененные тайлы
                 if (tileManager != null)
                 {
                     tileManager.ApplyModifiedTiles(saveData.modifiedTiles);
@@ -105,6 +102,15 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.LogWarning("Tile manager not found.");
                 }
+
+                // Добавляем предметы из сохранения в инвентарь игрока
+                AddItemsToPlayerInventory(saveData.backpack, "Backpack");
+                AddItemsToPlayerInventory(saveData.toolbar, "Toolbar");
+
+                // Обновляем UI
+                GameManager.instance.uiManager.RefreshAll();
+
+                Debug.Log("Game loaded.");
             }
             else
             {
@@ -114,6 +120,27 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Data manager or player not found.");
+        }
+    }
+
+    private void AddItemsToPlayerInventory(Inventory inventory, string inventoryName)
+    {
+        if (inventory != null)
+        {
+            foreach (Inventory.Slot slot in inventory.slots)
+            {
+                if (slot != null && !string.IsNullOrEmpty(slot.itemName))
+                {
+                    Item item = GameManager.instance.itemManager.GetItemByName(slot.itemName);
+                    if (item != null)
+                    {
+                        for (int i = 0; i < slot.count; i++)
+                        {
+                            player.inventoryManager.Add(inventoryName, item);
+                        }
+                    }
+                }
+            }
         }
     }
 
