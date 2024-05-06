@@ -8,15 +8,13 @@ public class Inventory
     [System.Serializable]
     public class Slot
     {
-        public string itemName;
+        public ItemData itemData;
         public int count;
         public int maxAllowed;
 
-        public Sprite icon;
-
         public Slot()
         {
-            itemName = ""; 
+            itemData = null; 
             count = 0;
             maxAllowed = 50;
         }
@@ -25,7 +23,7 @@ public class Inventory
         {
             get
             {
-                if(itemName == "" && count == 0)
+                if(itemData == null && count == 0)
                 {
                     return true;
                 }
@@ -35,7 +33,7 @@ public class Inventory
         }
         public bool CanAddItem(string itemName)
         {
-            if(this.itemName == itemName && count < maxAllowed)
+            if(this.itemData.itemName == itemName && count < maxAllowed)
             {
                 return true;
             }
@@ -44,15 +42,13 @@ public class Inventory
 
         public void AddItem(Item item)
         {
-            this.itemName = item.data.itemName;
-            this.icon = item.data.icon;
+            this.itemData = item.data;
             count++;
         }
 
-        public void AddItem(string itemName, Sprite icon, int maxAllowed)
+        public void AddItem(ItemData itemData, Sprite icon, int maxAllowed)
         {
-            this.itemName = itemName;
-            this.icon = icon;
+            this.itemData = itemData;
             count++;
             this.maxAllowed = maxAllowed;
         }
@@ -65,8 +61,7 @@ public class Inventory
                 
                 if(count == 0)
                 {
-                    icon = null;
-                    itemName = "";
+                    itemData = null;
                 }
             }
         }
@@ -89,7 +84,7 @@ public class Inventory
     {
         foreach(Slot slot in slots)
         {
-            if(slot.itemName == item.data.itemName && slot.CanAddItem(item.data.itemName))
+            if(slot.itemData != null && slot.itemData.itemName == item.data.itemName && slot.CanAddItem(item.data.itemName))
             {
                 slot.AddItem(item);
                 return;
@@ -98,7 +93,7 @@ public class Inventory
 
         foreach(Slot slot in slots)
         {
-            if(slot.itemName == "")
+            if(slot.itemData == null)
             {
                 slot.AddItem(item);
                 return;
@@ -127,11 +122,11 @@ public class Inventory
         Slot fromSlot = slots[fromIndex];
         Slot toSlot = toInventory.slots[toIndex];
 
-        if(toSlot.IsEmpty || toSlot.CanAddItem(fromSlot.itemName))
+        if(toSlot.IsEmpty || toSlot.CanAddItem(fromSlot.itemData.itemName))
         {
             for(int i = 0; i < numToMove; i++)
             {
-                toSlot.AddItem(fromSlot.itemName, fromSlot.icon, fromSlot.maxAllowed);
+                toSlot.AddItem(fromSlot.itemData, fromSlot.itemData.icon, fromSlot.maxAllowed);
                 fromSlot.RemoveItem();
             }
         }

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebb99c2caae19d4799d1b201887861c, type: 3}
   m_Name: Shovel
   m_EditorClassIdentifier: 
+  itemType: 5
   itemName: Shovel
   icon: {fileID: -879916029, guid: 8814ca828affc1447912a90396714fa0, type: 3}
+  isPlantable: 0

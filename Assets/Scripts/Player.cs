@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -9,9 +10,15 @@ public class Player : MonoBehaviour
 
     private TileManager tileManager;
 
-    public GameObject bedPrefab;
+    private List<PlantHolder> plantHolders = new List<PlantHolder>();
 
     private GardenManager gardenManager;
+
+    public PlantableStepsConfigurations plantStepsConfigurations;
+
+    private List<PlantHolder> plantsToHarvest = new List<PlantHolder>();
+
+    private List<PlantHolder> growingPlants = new List<PlantHolder>();
 
     private void Start()
     {
@@ -31,30 +38,72 @@ public class Player : MonoBehaviour
 
             if (!string.IsNullOrWhiteSpace(tileName))
             {
-                if (tileName == "tiles_306" && inventoryManager.toolbar.selectedSlot.itemName == "Hoe")
+                if (tileName == "tiles_306" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Hoe)
                 {
                     tileManager.SetInteracted(pos);
                 }
-                else if (tileName == "tiles_451" && inventoryManager.toolbar.selectedSlot.itemName == "Shovel")
+                else if (tileName == "tiles_451" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Showel)
                 {
                     // Создаем грядку с использованием менеджера грядок
                     gardenManager.CreateGardenBed(pos);
                 }
             }
         }
-       
-    }
 
-    private void CreateBed(Vector3Int pos)
-    {
-        // Размер тайла в мировых координатах
-        Vector3 tileSize = new Vector3(1f, 1f, 0f); // Предполагается, что размер тайла 1x1
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            Inventory.Slot slot = GameManager.instance.inventoryManager.toolbar.selectedSlot;
+            ItemData itemData = slot.itemData;
+            if (itemData.isPlantable) 
+            {
+                if(plantHolders.Count != 0)
+                {
+                    PlantableSteps plantableSteps = plantStepsConfigurations.stepsConfigurations.FirstOrDefault(stepsConfig => stepsConfig.itemType == itemData.itemType);
+                    if(plantableSteps != null)
+                    {
+                        plantHolders[^1].plantableSteps = plantableSteps;
 
-        // Позиция для размещения грядки в центре тайла
-        Vector3 spawnPosition = pos + tileSize / 2f;
+                        plantHolders[^1].StartGrow();
 
-        // Создание экземпляра префаба грядки
-        GameObject bed = Instantiate(bedPrefab, spawnPosition, Quaternion.identity);
+                        slot.RemoveItem();
+
+                        GameManager.instance.uiManager.RefreshAll();
+
+                        plantHolders.Remove(plantHolders[^1]);
+                    }
+                }
+            }
+            if(itemData.itemType == ItemType.Carrot)
+            {
+                if(growingPlants.Count != 0)
+                {
+                    growingPlants[^1].isFertilized = true;
+                    slot.RemoveItem();
+                    GameManager.instance.uiManager.RefreshAll();
+                    growingPlants.Remove(growingPlants[^1]);
+                }
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.H))
+        {
+            if (plantsToHarvest.Count != 0)
+            {
+                int count = plantsToHarvest[^1].isFertilized ? plantsToHarvest[^1].fertilizedCount : plantsToHarvest[^1].cropCount;
+                for (int i = 0; i < count; i++)
+                {
+                    Instantiate(plantsToHarvest[^1].cropPrefab, plantsToHarvest[^1].transform.position, Quaternion.identity);
+                }
+                
+                Vector3Int position = new Vector3Int((int)plantsToHarvest[^1].transform.position.x, (int)plantsToHarvest[^1].transform.position.y, 0);
+
+                plantsToHarvest.Remove(plantsToHarvest[^1]);
+                
+                gardenManager.RemoveGardenBed(position);
+
+                GameManager.instance.uiManager.RefreshAll();
+            }
+        }
 
     }
     public void DropItem(Item item)
@@ -78,5 +127,44 @@ public class Player : MonoBehaviour
         {
             DropItem(item);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.TryGetComponent(out PlantHolder plantHolder))
+        {
+            if(plantHolder.plantableSteps == null)
+            {
+                plantHolders.Add(plantHolder);
+            }
+            else if(plantHolder.plantableSteps != null && !plantHolder.readyToHarvest)
+            {
+                growingPlants.Add(plantHolder);
+            }
+            else if(plantHolder.readyToHarvest)
+            {
+                plantsToHarvest.Add(plantHolder);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out PlantHolder plantHolder))
+        {
+            if (plantHolders.Contains(plantHolder))
+            {
+                plantHolders.Remove(plantHolder);
+            }
+            if (growingPlants.Contains(plantHolder))
+            {
+                growingPlants.Remove(plantHolder);
+            }
+            if (plantsToHarvest.Contains(plantHolder))
+            {
+                plantsToHarvest.Remove(plantHolder);
+            }
+        }
+
     }
 }

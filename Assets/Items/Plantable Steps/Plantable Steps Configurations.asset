@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bebb99c2caae19d4799d1b201887861c, type: 3}
-  m_Name: Melon_Seeds
+  m_Script: {fileID: 11500000, guid: 04cffec73dc3331448e0ace1cbfa951b, type: 3}
+  m_Name: Plantable Steps Configurations
   m_EditorClassIdentifier: 
-  itemType: 2
-  itemName: Melon Seeds
-  icon: {fileID: -471481050, guid: 2375ee378b673c64687624073dce3513, type: 3}
-  isPlantable: 1
+  stepsConfigurations:
+  - {fileID: 11400000, guid: 1c0f8f47d9318384f9f5c671bbeb8c1e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

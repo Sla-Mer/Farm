@@ -129,9 +129,9 @@ public class GameManager : MonoBehaviour
         {
             foreach (Inventory.Slot slot in inventory.slots)
             {
-                if (slot != null && !string.IsNullOrEmpty(slot.itemName))
+                if (slot != null && slot.itemData != null)
                 {
-                    Item item = GameManager.instance.itemManager.GetItemByName(slot.itemName);
+                    Item item = GameManager.instance.itemManager.GetItemByName(slot.itemData.itemName);
                     if (item != null)
                     {
                         for (int i = 0; i < slot.count; i++)

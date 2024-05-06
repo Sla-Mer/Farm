@@ -6,7 +6,7 @@ public class GardenManager : MonoBehaviour
 {
     private Dictionary<Vector3Int, GameObject> gardenBeds = new Dictionary<Vector3Int, GameObject>();
 
-    public GameObject bedPrefab; // Префаб грядки
+    public GameObject bedPrefab; 
 
     public void CreateGardenBed(Vector3Int position)
     {
@@ -26,10 +26,7 @@ public class GardenManager : MonoBehaviour
 
     public void RemoveGardenBed(Vector3Int position)
     {
-        if (gardenBeds.ContainsKey(position))
-        {
-            Destroy(gardenBeds[position]);
-            gardenBeds.Remove(position);
-        }
+        Destroy(gardenBeds[position]);
+        gardenBeds.Remove(position);
     }
 }

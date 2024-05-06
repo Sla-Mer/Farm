@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bebb99c2caae19d4799d1b201887861c, type: 3}
-  m_Name: Melon_Seeds
+  m_Name: Carrot
   m_EditorClassIdentifier: 
-  itemType: 2
-  itemName: Melon Seeds
-  icon: {fileID: -471481050, guid: 2375ee378b673c64687624073dce3513, type: 3}
-  isPlantable: 1
+  itemType: 7
+  itemName: Carrot
+  icon: {fileID: 1358415243, guid: 05602c6f242c5704cba6725438a16d8c, type: 3}
+  isPlantable: 0

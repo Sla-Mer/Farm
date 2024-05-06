@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebb99c2caae19d4799d1b201887861c, type: 3}
   m_Name: Hoe
   m_EditorClassIdentifier: 
+  itemType: 1
   itemName: Hoe
   icon: {fileID: 1684010815, guid: 36741975d6aaa9e4ca668398c9969e42, type: 3}
+  isPlantable: 0
