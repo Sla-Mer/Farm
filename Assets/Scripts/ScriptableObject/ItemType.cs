@@ -7,5 +7,9 @@
     PumpkinSeeds = 4,
     Showel = 5,
     TomatoSeeds = 6,
-    Carrot = 7
+    Carrot = 7,
+    Melon = 8,
+    Potato = 9,
+    Pumpkin = 10,
+    Tomato = 11
 }

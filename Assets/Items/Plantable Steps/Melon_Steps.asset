@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3397fd3dac15a0c41ac362485b9e761c, type: 3}
+  m_Name: Melon_Steps
+  m_EditorClassIdentifier: 
+  itemType: 2
+  steps:
+  - stepIcon: {fileID: 1512651872, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 0
+  - stepIcon: {fileID: -1757539683, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 3
+  - stepIcon: {fileID: 1346866995, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 7
+  - stepIcon: {fileID: -595994960, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 7
+  - stepIcon: {fileID: -578711377, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 7
+  - stepIcon: {fileID: -1790182900, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 7
+  crop: {fileID: 5947082386196061195, guid: 8f20fbbcabe480048a803c1a5c908730, type: 3}
+  cropCount: 1
+  fertilizedCount: 2

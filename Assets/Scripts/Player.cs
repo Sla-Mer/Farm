@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
@@ -54,33 +55,36 @@ public class Player : MonoBehaviour
         {
             Inventory.Slot slot = GameManager.instance.inventoryManager.toolbar.selectedSlot;
             ItemData itemData = slot.itemData;
-            if (itemData.isPlantable) 
+            if(itemData != null)
             {
-                if(plantHolders.Count != 0)
+                if (itemData.isPlantable)
                 {
-                    PlantableSteps plantableSteps = plantStepsConfigurations.stepsConfigurations.FirstOrDefault(stepsConfig => stepsConfig.itemType == itemData.itemType);
-                    if(plantableSteps != null)
+                    if (plantHolders.Count != 0)
                     {
-                        plantHolders[^1].plantableSteps = plantableSteps;
+                        PlantableSteps plantableSteps = plantStepsConfigurations.stepsConfigurations.FirstOrDefault(stepsConfig => stepsConfig.itemType == itemData.itemType);
+                        if (plantableSteps != null)
+                        {
+                            plantHolders[^1].plantableSteps = plantableSteps;
 
-                        plantHolders[^1].StartGrow();
+                            plantHolders[^1].StartGrow();
 
-                        slot.RemoveItem();
+                            slot.RemoveItem();
 
-                        GameManager.instance.uiManager.RefreshAll();
+                            GameManager.instance.uiManager.RefreshAll();
 
-                        plantHolders.Remove(plantHolders[^1]);
+                            plantHolders.Remove(plantHolders[^1]);
+                        }
                     }
                 }
-            }
-            if(itemData.itemType == ItemType.Carrot)
-            {
-                if(growingPlants.Count != 0)
+                if (itemData.itemType == ItemType.Carrot)
                 {
-                    growingPlants[^1].isFertilized = true;
-                    slot.RemoveItem();
-                    GameManager.instance.uiManager.RefreshAll();
-                    growingPlants.Remove(growingPlants[^1]);
+                    if (growingPlants.Count != 0)
+                    {
+                        growingPlants[^1].isFertilized = true;
+                        slot.RemoveItem();
+                        GameManager.instance.uiManager.RefreshAll();
+                        growingPlants.Remove(growingPlants[^1]);
+                    }
                 }
             }
         }
@@ -94,12 +98,12 @@ public class Player : MonoBehaviour
                 {
                     Instantiate(plantsToHarvest[^1].cropPrefab, plantsToHarvest[^1].transform.position, Quaternion.identity);
                 }
-                
+
                 Vector3Int position = new Vector3Int((int)plantsToHarvest[^1].transform.position.x, (int)plantsToHarvest[^1].transform.position.y, 0);
 
                 plantsToHarvest.Remove(plantsToHarvest[^1]);
                 
-                gardenManager.RemoveGardenBed(position);
+                gardenManager.RemoveGardenBed(position);    
 
                 GameManager.instance.uiManager.RefreshAll();
             }

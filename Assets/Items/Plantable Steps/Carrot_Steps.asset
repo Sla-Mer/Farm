@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   steps:
-  - stepIcon: {fileID: 2133213594, guid: 2375ee378b673c64687624073dce3513, type: 3}
+  - stepIcon: {fileID: 673868399, guid: 2375ee378b673c64687624073dce3513, type: 3}
     stepTime: 0
+  - stepIcon: {fileID: 2133213594, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 5
   - stepIcon: {fileID: 802831081, guid: 2375ee378b673c64687624073dce3513, type: 3}
     stepTime: 5
   - stepIcon: {fileID: 856877298, guid: 2375ee378b673c64687624073dce3513, type: 3}

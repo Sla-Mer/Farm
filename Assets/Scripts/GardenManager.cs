@@ -13,10 +13,13 @@ public class GardenManager : MonoBehaviour
         // ѕровер€ем, есть ли уже гр€дка на данной позиции
         if (!gardenBeds.ContainsKey(position))
         {
+            Debug.Log($"Key Position for this bed is {position}");
           
             Vector3 tileSize = new Vector3(1f, 1f, 0f); 
 
             Vector3 spawnPosition = position + tileSize / 2f;
+
+            Debug.Log($"Soawn Position for this bed is {spawnPosition}");
 
             GameObject bed = Instantiate(bedPrefab, spawnPosition, Quaternion.identity);
 
@@ -26,6 +29,7 @@ public class GardenManager : MonoBehaviour
 
     public void RemoveGardenBed(Vector3Int position)
     {
+        Debug.Log($"Position for destroy: {position}");
         Destroy(gardenBeds[position]);
         gardenBeds.Remove(position);
     }

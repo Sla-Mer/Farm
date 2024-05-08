@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3397fd3dac15a0c41ac362485b9e761c, type: 3}
+  m_Name: Pumpkin_Steps
+  m_EditorClassIdentifier: 
+  itemType: 4
+  steps:
+  - stepIcon: {fileID: 1460638321, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 0
+  - stepIcon: {fileID: 640896081, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 5
+  - stepIcon: {fileID: -2131286874, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 15
+  - stepIcon: {fileID: -1749117877, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 15
+  - stepIcon: {fileID: -68612495, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 15
+  - stepIcon: {fileID: -1020007694, guid: 2375ee378b673c64687624073dce3513, type: 3}
+    stepTime: 15
+  crop: {fileID: 22678735385287312, guid: 829d290b54f00bc4abd07ecc946177f8, type: 3}
+  cropCount: 1
+  fertilizedCount: 2
