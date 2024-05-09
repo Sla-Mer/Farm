@@ -6,22 +6,22 @@ public class GardenManager : MonoBehaviour
 {
     private Dictionary<Vector3Int, GameObject> gardenBeds = new Dictionary<Vector3Int, GameObject>();
 
-    public GameObject bedPrefab; 
+    public GameObject bedPrefab;
+
 
     public void CreateGardenBed(Vector3Int position)
     {
         // ѕровер€ем, есть ли уже гр€дка на данной позиции
         if (!gardenBeds.ContainsKey(position))
         {
+            //Vector3 offset = new Vector3(0.5f, 0.5f, 0);
+
+            //Vector3 spawnPos = position + offset;
             Debug.Log($"Key Position for this bed is {position}");
-          
-            Vector3 tileSize = new Vector3(1f, 1f, 0f); 
 
-            Vector3 spawnPosition = position + tileSize / 2f;
+            Debug.Log($"Soawn Position for this bed is {position}");
 
-            Debug.Log($"Soawn Position for this bed is {spawnPosition}");
-
-            GameObject bed = Instantiate(bedPrefab, spawnPosition, Quaternion.identity);
+            GameObject bed = Instantiate(bedPrefab, position, Quaternion.identity);
 
             gardenBeds.Add(position, bed);
         }

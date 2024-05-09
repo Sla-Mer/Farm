@@ -7,6 +7,8 @@ using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
+    private float offset = 0.49f;
+
     public InventoryManager inventoryManager;
 
     private TileManager tileManager;
@@ -31,8 +33,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.E))
         {
-            Vector3Int pos = new Vector3Int((int)transform.position.x,
-                (int)transform.position.y,
+            Vector3Int pos = new Vector3Int((int)(transform.position.x),
+                (int)(transform.position.y),
                 0);
 
             string tileName = tileManager.GetTileName(pos);

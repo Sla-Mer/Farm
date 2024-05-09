@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private Tilemap tiles;
 
     [SerializeField] private Tile bedTile;
+
     void Start()
     {
         
