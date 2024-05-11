@@ -78,7 +78,7 @@ public class WorldGenerator : MonoBehaviour
         if (randomChance < flowerSpawnChance)
         {
             TileBase flowerTile = Random.Range(0, 2) == 0 ? blueFlowerTile : whiteFlowerTile;
-            groundObjectsTilemap.SetTile(new Vector3Int(x, y, 0), flowerTile);
+            landTilemap.SetTile(new Vector3Int(x, y, 0), flowerTile);
         }
     }
 }
