@@ -5,15 +5,20 @@ using UnityEngine.Tilemaps;
 
 public class WorldGenerator : MonoBehaviour
 {
-    public int width = 500;
-    public int height = 500;
-    public float scale = 20f;
-    public int seed = 248;
+    public int width;
+    public int height;
+    public float scale;
+    public int seed;
     public Tilemap waterTilemap;
     public Tilemap landTilemap;
+    public Tilemap groundObjectsTilemap; // Новый Tilemap для объектов на земле
     public TileBase waterTile;
     public TileBase grassTile;
     public TileBase sandTile;
+    public TileBase mountainTile; // Новый тайл для гор
+    public TileBase blueFlowerTile;
+    public TileBase whiteFlowerTile;
+    public float flowerSpawnChance = 5f; // Шанс появления цветов
 
     void Start()
     {
@@ -22,37 +27,58 @@ public class WorldGenerator : MonoBehaviour
 
     void GenerateWorld()
     {
-        Random.InitState(seed); // Инициализация генератора случайных чисел с помощью сида
+        Random.InitState(seed);
 
-        // Перебор всех пикселей в мире
         for (int x = -width / 2; x < width / 2; x++)
         {
             for (int y = -height / 2; y < height / 2; y++)
             {
-                // Расстояние от текущей точки до центра мира
                 float distanceToCenter = Vector2.Distance(new Vector2(x, y), Vector2.zero);
+                float noiseValue = Mathf.PerlinNoise((float)x / width * scale + seed, (float)y / height * scale + seed);
 
-                // Если расстояние больше радиуса острова, считаем это за воду
                 if (distanceToCenter >= width / 2)
                 {
                     waterTilemap.SetTile(new Vector3Int(x, y, 0), waterTile);
                 }
-                else
+                else if (noiseValue < 0.15f)
                 {
-                    // Генерация значения шума Перлина с учетом сида
-                    float noiseValue = Mathf.PerlinNoise((float)x / width * scale + seed, (float)y / height * scale + seed);
-
-                    // Устанавливаем тайл земли на соответствующее место в Tilemap Land
-                    if (noiseValue < 0.6f)
-                    {
-                        landTilemap.SetTile(new Vector3Int(x, y, 0), grassTile);
-                    }
-                    else
-                    {
-                        landTilemap.SetTile(new Vector3Int(x, y, 0), sandTile);
-                    }
+                    waterTilemap.SetTile(new Vector3Int(x, y, 0), waterTile);
                 }
+
+                else if (noiseValue >= 0.15f && noiseValue < 0.4f)
+                {
+                    landTilemap.SetTile(new Vector3Int(x, y, 0), grassTile);
+                    TrySpawnFlower(x, y);
+                }
+
+                else if (noiseValue >= 0.4f && noiseValue < 0.5f)
+                {
+                    landTilemap.SetTile(new Vector3Int(x, y, 0), sandTile);
+                }
+
+                else if (noiseValue >= 0.5f && noiseValue < 0.8f)
+                {
+                    landTilemap.SetTile(new Vector3Int(x, y, 0), grassTile);
+                    TrySpawnFlower(x, y);
+                }
+                else if (noiseValue >= 0.8f && noiseValue < 1.1f)
+                {
+                    groundObjectsTilemap.SetTile(new Vector3Int(x, y, 0), mountainTile);
+                    landTilemap.SetTile(new Vector3Int(x, y, 0), grassTile);
+                }
+
+
             }
+        }
+    }
+
+    void TrySpawnFlower(int x, int y)
+    {
+        float randomChance = Random.Range(0,1000);
+        if (randomChance < flowerSpawnChance)
+        {
+            TileBase flowerTile = Random.Range(0, 2) == 0 ? blueFlowerTile : whiteFlowerTile;
+            groundObjectsTilemap.SetTile(new Vector3Int(x, y, 0), flowerTile);
         }
     }
 }

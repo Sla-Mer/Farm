@@ -1169,6 +1169,7 @@ GameObject:
   - component: {fileID: 138039688}
   - component: {fileID: 138039690}
   - component: {fileID: 138039689}
+  - component: {fileID: 138039691}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -2592,6 +2593,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &138039691
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138039687}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &166181366
 GameObject:
   m_ObjectHideFlags: 0
@@ -21404,7 +21441,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: {fileID: 925006685}
   bedTile: {fileID: 11400000, guid: 303f37a890ad9544aa2e30c98167acde, type: 2}
-  sandTile: {fileID: 11400000, guid: 1de985a40bf82e94787b93ea99dc1158, type: 2}
 --- !u!114 &1175181603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21502,13 +21538,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 500
   height: 500
-  scale: 20
-  seed: 1488
+  scale: 10
+  seed: 1000
   waterTilemap: {fileID: 1445826445}
   landTilemap: {fileID: 925006685}
+  groundObjectsTilemap: {fileID: 138039690}
   waterTile: {fileID: 11400000, guid: cc115d757dc0b8449ac61445c61715a3, type: 2}
   grassTile: {fileID: 11400000, guid: 1de985a40bf82e94787b93ea99dc1158, type: 2}
   sandTile: {fileID: 11400000, guid: 0fab0d550d160df4c9001d9cb0cbfa4b, type: 2}
+  mountainTile: {fileID: 11400000, guid: c8456987036e50349bfb02a164884542, type: 2}
+  blueFlowerTile: {fileID: 11400000, guid: afc03cb8702e74e41bb2ec9d20f2d56f, type: 2}
+  whiteFlowerTile: {fileID: 11400000, guid: 3009fcd75eea0d04fa2c94960b06c1d4, type: 2}
+  flowerSpawnChance: 0.05
 --- !u!1001 &1221718070
 PrefabInstance:
   m_ObjectHideFlags: 0
