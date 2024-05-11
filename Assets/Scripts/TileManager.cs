@@ -27,7 +27,16 @@ public class TileManager : MonoBehaviour
 
             if (tile != null)
             {
-                return tile.name;
+                if (tile is RuleTile)
+                {
+                    RuleTile ruleTile = tile as RuleTile;
+                    return ruleTile.m_DefaultSprite != null ? ruleTile.m_DefaultSprite.name : "";
+                }
+                else
+                {
+                    // Если тайл не является RuleTile, возвращаем его имя
+                    return tile.name;
+                }
             }
         }
 

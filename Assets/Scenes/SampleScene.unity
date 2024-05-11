@@ -2641,7 +2641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daad593110135474485d7c2cedc22451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 10
   animator: {fileID: 902011171}
 --- !u!61 &166181369
 BoxCollider2D:
@@ -2727,7 +2727,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4795fe86f9abd354ea11c5630b12329a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSize: 6
+  zoomedSize: 40
   inventoryManager: {fileID: 1175181604}
+  mainCamera: {fileID: 0}
   plantStepsConfigurations: {fileID: 11400000, guid: e9dbe8af267de4941af05ffdcb4a2d18, type: 2}
 --- !u!114 &166181372
 MonoBehaviour:
@@ -13708,16 +13711,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 0, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 1, y: 0, z: 0}
     second:
       serializedVersion: 2
@@ -19794,7 +19787,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 1de985a40bf82e94787b93ea99dc1158, type: 2}
   - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: ee57a1ec69c90c348b57f7dbde9655dc, type: 2}
-  - m_RefCount: 111
+  - m_RefCount: 110
     m_Data: {fileID: 11400000, guid: e8d9b8009a2b26845a452e36797717f5, type: 2}
   - m_RefCount: 10
     m_Data: {fileID: 11400000, guid: d03dc07308637624fbc8c24fc1aeedf8, type: 2}
@@ -19841,7 +19834,7 @@ Tilemap:
     m_Data: {fileID: 1367140401, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 586443528, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
-  - m_RefCount: 111
+  - m_RefCount: 110
     m_Data: {fileID: 2124317529, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   - m_RefCount: 10
     m_Data: {fileID: -1951367956, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
@@ -19900,7 +19893,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 749315658, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1325
+  - m_RefCount: 1324
     m_Data:
       e00: 1
       e01: 0
@@ -19919,7 +19912,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1325
+  - m_RefCount: 1324
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -21411,6 +21404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: {fileID: 925006685}
   bedTile: {fileID: 11400000, guid: 303f37a890ad9544aa2e30c98167acde, type: 2}
+  sandTile: {fileID: 11400000, guid: 1de985a40bf82e94787b93ea99dc1158, type: 2}
 --- !u!114 &1175181603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21509,11 +21503,12 @@ MonoBehaviour:
   width: 500
   height: 500
   scale: 20
+  seed: 1488
   waterTilemap: {fileID: 1445826445}
   landTilemap: {fileID: 925006685}
   waterTile: {fileID: 11400000, guid: cc115d757dc0b8449ac61445c61715a3, type: 2}
   grassTile: {fileID: 11400000, guid: 1de985a40bf82e94787b93ea99dc1158, type: 2}
-  SandTile: {fileID: 11400000, guid: 0fab0d550d160df4c9001d9cb0cbfa4b, type: 2}
+  sandTile: {fileID: 11400000, guid: 0fab0d550d160df4c9001d9cb0cbfa4b, type: 2}
 --- !u!1001 &1221718070
 PrefabInstance:
   m_ObjectHideFlags: 0

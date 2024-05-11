@@ -7,7 +7,9 @@ using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
-    private float offset = 0.49f;
+
+    public float defaultSize; 
+    public float zoomedSize; 
 
     public InventoryManager inventoryManager;
 
@@ -16,6 +18,8 @@ public class Player : MonoBehaviour
     private List<PlantHolder> plantHolders = new List<PlantHolder>();
 
     private GardenManager gardenManager;
+
+    public Camera mainCamera;
 
     public PlantableStepsConfigurations plantStepsConfigurations;
 
@@ -27,6 +31,7 @@ public class Player : MonoBehaviour
     {
         tileManager = GameManager.instance.tileManager;
         gardenManager = GameManager.instance.gardenManager;
+        mainCamera = FindObjectOfType<Camera>();
     }
 
     private void Update()
@@ -41,7 +46,7 @@ public class Player : MonoBehaviour
 
             if (!string.IsNullOrWhiteSpace(tileName))
             {
-                if (tileName == "tiles_306" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Hoe)
+                if (tileName == "tiles_48" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Hoe)
                 {
                     tileManager.SetInteracted(pos);
                 }
@@ -51,6 +56,7 @@ public class Player : MonoBehaviour
                     gardenManager.CreateGardenBed(pos);
                 }
             }
+
         }
 
         if (Input.GetKeyUp(KeyCode.F))
@@ -109,6 +115,15 @@ public class Player : MonoBehaviour
 
                 GameManager.instance.uiManager.RefreshAll();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            mainCamera.orthographicSize = zoomedSize;
+        }
+        else if (Input.GetKeyUp(KeyCode.M))
+        {
+            mainCamera.orthographicSize = defaultSize;
         }
 
     }
