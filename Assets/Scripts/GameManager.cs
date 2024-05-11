@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public GardenManager gardenManager;
 
+    public WorldGenerator worldGenerator;
+
     public Player player;
 
     public MenuController menuController;
@@ -49,6 +51,8 @@ public class GameManager : MonoBehaviour
         gardenManager = GetComponent<GardenManager>();
 
         menuController = GetComponent<MenuController>();
+
+        worldGenerator = GetComponent<WorldGenerator>();
 
         player = FindObjectOfType<Player>();
     }

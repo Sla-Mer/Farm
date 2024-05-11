@@ -15982,7 +15982,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 13
-      m_TileSpriteIndex: 13
+      m_TileSpriteIndex: 30
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -17392,7 +17392,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 19
-      m_TileSpriteIndex: 19
+      m_TileSpriteIndex: 29
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -17492,7 +17492,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 18
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 28
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -19863,8 +19863,8 @@ Tilemap:
     m_Data: {fileID: -745107597, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 1418490831, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 749315658, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 5
     m_Data: {fileID: -796583184, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   - m_RefCount: 5
@@ -19873,10 +19873,10 @@ Tilemap:
     m_Data: {fileID: -1486864583, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 1444366406, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 1124376195, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -2145179352, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: -2130042211, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   - m_RefCount: 0
@@ -19893,12 +19893,12 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1124376195, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -2145179352, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 749315658, guid: 4bb5fbf3bd714d94a96f2dbdc3a63741, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1325
     m_Data:
@@ -21328,6 +21328,7 @@ GameObject:
   - component: {fileID: 1175181605}
   - component: {fileID: 1175181606}
   - component: {fileID: 1175181607}
+  - component: {fileID: 1175181608}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -21368,6 +21369,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 0}
   uiManager: {fileID: 0}
   gardenManager: {fileID: 0}
+  worldGenerator: {fileID: 0}
   player: {fileID: 166181371}
   menuController: {fileID: 0}
 --- !u!114 &1175181601
@@ -21492,6 +21494,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bedPrefab: {fileID: 2228700821414210263, guid: 91c6b12d9456646449797e43ec5b9a0c, type: 3}
+--- !u!114 &1175181608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175181598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0026d22ecc525b3438801ee5bf23aad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 500
+  height: 500
+  scale: 20
+  waterTilemap: {fileID: 1445826445}
+  landTilemap: {fileID: 925006685}
+  waterTile: {fileID: 11400000, guid: cc115d757dc0b8449ac61445c61715a3, type: 2}
+  grassTile: {fileID: 11400000, guid: 1de985a40bf82e94787b93ea99dc1158, type: 2}
+  SandTile: {fileID: 11400000, guid: 0fab0d550d160df4c9001d9cb0cbfa4b, type: 2}
 --- !u!1001 &1221718070
 PrefabInstance:
   m_ObjectHideFlags: 0
