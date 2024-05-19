@@ -16,3 +16,5 @@ MonoBehaviour:
   itemName: Melon
   icon: {fileID: -1367487127, guid: 05602c6f242c5704cba6725438a16d8c, type: 3}
   isPlantable: 0
+  isSellable: 1
+  price: 60

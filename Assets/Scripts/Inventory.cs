@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Inventory;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public class Inventory
@@ -33,7 +35,7 @@ public class Inventory
         }
         public bool CanAddItem(string itemName)
         {
-            if(this.itemData.itemName == itemName && count < maxAllowed)
+            if(this.itemData != null && this.itemData.itemName == itemName && count < maxAllowed)
             {
                 return true;
             }
@@ -46,7 +48,7 @@ public class Inventory
             count++;
         }
 
-        public void AddItem(ItemData itemData, Sprite icon, int maxAllowed)
+        public void AddItem(ItemData itemData, int maxAllowed)
         {
             this.itemData = itemData;
             count++;
@@ -84,18 +86,39 @@ public class Inventory
     {
         foreach(Slot slot in slots)
         {
-            if(slot.itemData != null && slot.itemData.itemName == item.data.itemName && slot.CanAddItem(item.data.itemName))
+            if(slot.CanAddItem(item.data.itemName))
             {
                 slot.AddItem(item);
                 return;
             }
         }
 
-        foreach(Slot slot in slots)
+        foreach (Slot slot in slots)
         {
-            if(slot.itemData == null)
+            if (slot.itemData == null)
             {
                 slot.AddItem(item);
+                return;
+            }
+        }
+    }
+
+    public void Add(ItemData itemData)
+    {
+        foreach (Slot slot in slots)
+        {
+            if (slot.CanAddItem(itemData.itemName))
+            {
+                slot.AddItem(itemData, slot.maxAllowed);
+                return;
+            }
+        }
+
+        foreach (Slot slot in slots)
+        {
+            if (slot.itemData == null)
+            {
+                slot.AddItem(itemData, slot.maxAllowed);
                 return;
             }
         }
@@ -126,7 +149,7 @@ public class Inventory
         {
             for(int i = 0; i < numToMove; i++)
             {
-                toSlot.AddItem(fromSlot.itemData, fromSlot.itemData.icon, fromSlot.maxAllowed);
+                toSlot.AddItem(fromSlot.itemData, fromSlot.maxAllowed);
                 fromSlot.RemoveItem();
             }
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,24 @@ public class UI_Manager : MonoBehaviour
 
     public GameObject inventoryPanel;
 
+    public TextMeshProUGUI moneyText;
+
     public List<Inventory_UI> inventoryUIs;
 
     public static Slot_UI draggedSlot;
     public static Image draggedIcon;
     public static bool dragSingle;
+
+    private void OnEnable()
+    {
+        GameManager.instance.moneyManager.onBalanceChanged += UpdateMoneyLabel;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.instance.moneyManager.onBalanceChanged -= UpdateMoneyLabel;
+    }
+
 
     private void Awake()
     {
@@ -63,6 +77,7 @@ public class UI_Manager : MonoBehaviour
                 inventoryUIByName.Add(ui.inventoryName, ui);
             }
         }
+        UpdateMoneyLabel(GameManager.instance.moneyManager.GetBalance());
     }
 
 
@@ -80,5 +95,10 @@ public class UI_Manager : MonoBehaviour
                 inventoryPanel.SetActive(false);
             }
         }
+    }
+
+    private void UpdateMoneyLabel(int amount)
+    {
+        moneyText.text = amount.ToString();
     }
 }

@@ -2,32 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public enum TileType
+{
+    Water,
+    Grass,
+    Sand,
+    Mountain,
+    BlueFlower,
+    WhiteFlower,
+    Bed
+}
 
 [System.Serializable]
-public class TileData
+public class TileSaveData
 {
-    public Vector2Int position;
-    public string tileType;
+    public Vector3Int position;
+    public TileType type;
 
-    public TileData(Vector2Int pos, string type)
+    public TileSaveData(Vector3Int position, TileType type)
     {
-        position = pos;
-        tileType = type;
+        this.position = position;
+        this.type = type;
     }
 }
 
 [System.Serializable]
 public class SaveData
 {
-    public List<TileData> modifiedTiles = new List<TileData>();
     public Inventory backpack;
     public Inventory toolbar;
+    public int money;
+    public List<TileSaveData> waterTiles;
+    public List<TileSaveData> landTiles;
+    public List<TileSaveData> groundObjectsTiles;
 
-    public SaveData(List<TileData> tiles, Inventory backpack, Inventory toolbar)
+    public SaveData(Inventory backpack,int money, Inventory toolbar)
     {
-        modifiedTiles = tiles;
         this.backpack = backpack;
         this.toolbar = toolbar;
+        this.money = money;
+        waterTiles = new List<TileSaveData>();
+        landTiles = new List<TileSaveData>();
+        groundObjectsTiles = new List<TileSaveData>();
     }
 }
 
@@ -50,6 +68,7 @@ public class SavesManager : MonoBehaviour
 
         savePath = "Saves/save.json";
     }
+
     public void SaveGame(SaveData saveData)
     {
         string json = JsonUtility.ToJson(saveData);

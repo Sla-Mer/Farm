@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     public ItemManager itemManager;
 
     public TileManager tileManager;
+
+    public TilemapManager tilemapManager;
 
     public SavesManager saveManager;
 
@@ -23,6 +26,8 @@ public class GameManager : MonoBehaviour
     public Player player;
 
     public MenuController menuController;
+
+    public MoneyManager moneyManager;
 
     private void Awake()
     {
@@ -42,6 +47,8 @@ public class GameManager : MonoBehaviour
 
         tileManager = GetComponent<TileManager>();
 
+        tilemapManager = GetComponent<TilemapManager>();
+
         saveManager = GetComponent<SavesManager>();
 
         inventoryManager = GetComponent<InventoryManager>();
@@ -54,22 +61,57 @@ public class GameManager : MonoBehaviour
 
         worldGenerator = GetComponent<WorldGenerator>();
 
+        moneyManager = GetComponent<MoneyManager>();
+
         player = FindObjectOfType<Player>();
+
+        moneyManager.AddMoney(2000);
     }
 
     public void SaveGame()
     {
         if (saveManager != null && player != null && tileManager != null)
         {
-            // Получаем измененные тайлы
-            List<TileData> modifiedTiles = tileManager.GetModifiedTiles();
 
-            // Получаем инвентари из InventoryManager
             Inventory backpack = GameManager.instance.inventoryManager.GetInventoryByName("Backpack");
             Inventory toolbar = GameManager.instance.inventoryManager.GetInventoryByName("Toolbar");
 
-            // Создаем объект SaveData и передаем в него данные
-            SaveData saveData = new SaveData(modifiedTiles, backpack, toolbar);
+            int money = moneyManager.GetBalance();
+
+            SaveData saveData = new SaveData(backpack, money, toolbar);
+
+            foreach (Vector3Int pos in tilemapManager.waterTilemap.cellBounds.allPositionsWithin)
+            {
+                TileBase tile = tilemapManager.GetTile(tilemapManager.waterTilemap, pos);
+                if (tile != null)
+                {
+                    TileType type = tilemapManager.GetTypeByTile(tile);
+                    TileSaveData tileSaveData = new TileSaveData(pos, type);
+                    saveData.waterTiles.Add(tileSaveData);
+                }
+            }
+
+            foreach (Vector3Int pos in tilemapManager.landTilemap.cellBounds.allPositionsWithin)
+            {
+                TileBase tile = tilemapManager.GetTile(tilemapManager.landTilemap, pos);
+                if (tile != null)
+                {
+                    TileType type = tilemapManager.GetTypeByTile(tile);
+                    TileSaveData tileSaveData = new TileSaveData(pos, type);
+                    saveData.landTiles.Add(tileSaveData);
+                }
+            }
+
+            foreach (Vector3Int pos in tilemapManager.groundObjectsTilemap.cellBounds.allPositionsWithin)
+            {
+                TileBase tile = tilemapManager.GetTile(tilemapManager.groundObjectsTilemap, pos);
+                if (tile != null)
+                {
+                    TileType type = tilemapManager.GetTypeByTile(tile);
+                    TileSaveData tileSaveData = new TileSaveData(pos, type);
+                    saveData.groundObjectsTiles.Add(tileSaveData);
+                }
+            }
 
             // Сохраняем игру
             saveManager.SaveGame(saveData);
@@ -92,25 +134,26 @@ public class GameManager : MonoBehaviour
             SaveData saveData = saveManager.LoadGame();
 
             if (saveData != null)
-            {
-                // Применяем данные из сохранения к инвентарям
-                GameManager.instance.inventoryManager.backpack = saveData.backpack;
-                GameManager.instance.inventoryManager.toolbar = saveData.toolbar;
-
-                // Применяем измененные тайлы
-                if (tileManager != null)
-                {
-                    tileManager.ApplyModifiedTiles(saveData.modifiedTiles);
-                }
-                else
-                {
-                    Debug.LogWarning("Tile manager not found.");
-                }
-
-                // Добавляем предметы из сохранения в инвентарь игрока
+            { 
                 AddItemsToPlayerInventory(saveData.backpack, "Backpack");
                 AddItemsToPlayerInventory(saveData.toolbar, "Toolbar");
 
+                tilemapManager.ClearAllTilemaps();
+
+                foreach (TileSaveData tileSaveData in saveData.waterTiles)
+                {
+                    tilemapManager.ApplyTileFromSaveData(tilemapManager.waterTilemap, tileSaveData);
+                }
+
+                foreach (TileSaveData tileSaveData in saveData.landTiles)
+                {
+                    tilemapManager.ApplyTileFromSaveData(tilemapManager.landTilemap, tileSaveData);
+                }
+
+                foreach (TileSaveData tileSaveData in saveData.groundObjectsTiles)
+                {
+                    tilemapManager.ApplyTileFromSaveData(tilemapManager.groundObjectsTilemap, tileSaveData);
+                }
                 // Обновляем UI
                 GameManager.instance.uiManager.RefreshAll();
 

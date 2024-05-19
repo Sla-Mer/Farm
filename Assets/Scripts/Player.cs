@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
 {
 
     public float defaultSize; 
-    public float zoomedSize; 
+    public float zoomedSize;
+
+    public ShopItemData buyingItem;
 
     public InventoryManager inventoryManager;
 
@@ -38,26 +40,39 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.E))
         {
-            Vector3Int pos = new Vector3Int((int)(transform.position.x),
+            if (buyingItem != null)
+            {
+                int balance = GameManager.instance.moneyManager.GetBalance();
+                if(balance  >= buyingItem.price)
+                {
+                    inventoryManager.Add("Backpack", buyingItem.item);
+                    GameManager.instance.moneyManager.RemoveMoney(buyingItem.price);
+                }
+            }
+            else
+            {
+                Vector3Int pos = new Vector3Int((int)(transform.position.x),
                 (int)(transform.position.y),
                 0);
 
-            string tileName = tileManager.GetTileName(pos);
+                string tileName = tileManager.GetTileName(pos);
 
-            if (!string.IsNullOrWhiteSpace(tileName))
-            {
-                if (tileName == "tiles_48" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Hoe)
+                if (!string.IsNullOrWhiteSpace(tileName))
                 {
-                    tileManager.SetInteracted(pos);
-                }
-                else if (tileName == "tiles_451" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Showel)
-                {
-                    // Создаем грядку с использованием менеджера грядок
-                    gardenManager.CreateGardenBed(pos);
+                    if (tileName == "tiles_48" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Hoe)
+                    {
+                        tileManager.SetInteracted(pos);
+                    }
+                    else if (tileName == "tiles_451" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Showel)
+                    {
+                        // Создаем грядку с использованием менеджера грядок
+                        gardenManager.CreateGardenBed(pos);
+                    }
                 }
             }
-
         }
+
+
 
         if (Input.GetKeyUp(KeyCode.F))
         {

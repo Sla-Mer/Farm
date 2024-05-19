@@ -8,4 +8,6 @@ public class ItemData : ScriptableObject
     public string itemName = "Item Name";
     public Sprite icon;
     public bool isPlantable = false;
+    public bool isSellable = false;
+    [Min(0)]public int price = 0;
 }
