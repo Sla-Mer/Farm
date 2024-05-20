@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3482248848483685973}
   m_Layer: 3
   m_Name: Bed
-  m_TagString: Untagged
+  m_TagString: GardenBed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

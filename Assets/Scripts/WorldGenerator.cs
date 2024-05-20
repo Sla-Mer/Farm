@@ -32,11 +32,11 @@ public class WorldGenerator : MonoBehaviour
 
     void Start()
     {
-        GenerateWorld();
-        PlaceTrees();
-        PlaceBushes();
-        PlaceFlowers();
-        PlaceShop();
+        //GenerateWorld();
+        //PlaceTrees();
+        //PlaceBushes();
+        //PlaceFlowers();
+        //PlaceShop();
     }
 
     void GenerateWorld()

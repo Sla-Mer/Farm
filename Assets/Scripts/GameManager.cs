@@ -29,6 +29,17 @@ public class GameManager : MonoBehaviour
 
     public MoneyManager moneyManager;
 
+    public GameObject appleTreePrefab;
+    public GameObject oakTreePrefab;
+    public GameObject pineTreePrefab;
+
+    public GameObject gardenBedPrefab;
+
+    public GameObject bush1Prefab;
+    public GameObject bush2Prefab;
+
+    public GameObject shopPrefab;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -72,13 +83,14 @@ public class GameManager : MonoBehaviour
     {
         if (saveManager != null && player != null && tileManager != null)
         {
-
             Inventory backpack = GameManager.instance.inventoryManager.GetInventoryByName("Backpack");
             Inventory toolbar = GameManager.instance.inventoryManager.GetInventoryByName("Toolbar");
 
             int money = moneyManager.GetBalance();
+            Vector3 playerPosition = player.transform.position;
+            PlayerSaveData playerData = new PlayerSaveData(playerPosition);
 
-            SaveData saveData = new SaveData(backpack, money, toolbar);
+            SaveData saveData = new SaveData(backpack, money, toolbar, playerData);
 
             foreach (Vector3Int pos in tilemapManager.waterTilemap.cellBounds.allPositionsWithin)
             {
@@ -113,6 +125,18 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+            // Сохранение игровых объектов
+            foreach (GameObject obj in FindObjectsOfType<GameObject>())
+            {
+                // Сохранение объектов, которые нужно сохранить, например, деревья, кусты, грядки
+                if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("GardenBed") || obj.CompareTag("Shop"))
+                {
+                    string specificType = obj.name; // Используем имя объекта как уникальный идентификатор типа
+                    GameObjectSaveData objSaveData = new GameObjectSaveData(obj.transform.position, obj.tag, specificType);
+                    saveData.gameObjectsData.Add(objSaveData);
+                }
+            }
+
             // Сохраняем игру
             saveManager.SaveGame(saveData);
 
@@ -125,7 +149,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
     public void LoadGame()
     {
         if (saveManager != null && player != null)
@@ -134,9 +157,12 @@ public class GameManager : MonoBehaviour
             SaveData saveData = saveManager.LoadGame();
 
             if (saveData != null)
-            { 
+            {
                 AddItemsToPlayerInventory(saveData.backpack, "Backpack");
                 AddItemsToPlayerInventory(saveData.toolbar, "Toolbar");
+
+                // Восстановление позиции игрока
+                player.transform.position = saveData.playerData.position;
 
                 tilemapManager.ClearAllTilemaps();
 
@@ -154,6 +180,19 @@ public class GameManager : MonoBehaviour
                 {
                     tilemapManager.ApplyTileFromSaveData(tilemapManager.groundObjectsTilemap, tileSaveData);
                 }
+
+                ClearObjects();
+
+                // Восстановление игровых объектов
+                foreach (GameObjectSaveData objSaveData in saveData.gameObjectsData)
+                {
+                    GameObject prefab = GetPrefabByType(objSaveData.type, objSaveData.specificType);
+                    if (prefab != null)
+                    {
+                        Instantiate(prefab, objSaveData.position, Quaternion.identity);
+                    }
+                }
+
                 // Обновляем UI
                 GameManager.instance.uiManager.RefreshAll();
 
@@ -167,6 +206,66 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Data manager or player not found.");
+        }
+    }
+
+    private void ClearObjects()
+    {
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
+        {
+            // Сохранение объектов, которые нужно сохранить, например, деревья, кусты, грядки
+            if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("GardenBed") || obj.CompareTag("Shop"))
+            {
+                Destroy(obj);
+            }
+        }
+    }
+    private GameObject GetPrefabByType(string type, string specificType)
+    {
+        // Метод для получения префаба по типу и конкретному типу (specificType)
+        switch (type)
+        {
+            case "Tree":
+                return GetTreePrefabByName(specificType);
+            case "Bush":
+                return GetBushPrefabByName(specificType);
+            case "GardenBed":
+                return gardenBedPrefab;
+            case "Shop":
+                return shopPrefab;
+            default:
+                return null;
+        }
+    }
+
+    private GameObject GetTreePrefabByName(string name)
+    {
+        // Реализуйте логику для возврата префаба дерева по имени
+        switch (name)
+        {
+            case "AppleTree(Clone)":
+                return appleTreePrefab;
+            case "OakTree(Clone)":
+                return oakTreePrefab;
+            case "PineTree(Clone)":
+                return pineTreePrefab;
+            default:
+                return null;
+        }
+    }
+
+    private GameObject GetBushPrefabByName(string name)
+    {
+        // Реализуйте логику для возврата префаба куста по имени
+        switch (name)
+        {
+            case "bush1(Clone)":
+                return bush1Prefab;
+            case "bush2(Clone)":
+                return bush2Prefab;
+            // Добавьте другие типы кустов
+            default:
+                return null;
         }
     }
 

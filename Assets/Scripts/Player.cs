@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public float defaultSize; 
     public float zoomedSize;
 
+    public bool isSelling;
+
     public ShopItemData buyingItem;
 
     public InventoryManager inventoryManager;
@@ -49,7 +51,13 @@ public class Player : MonoBehaviour
                     GameManager.instance.moneyManager.RemoveMoney(buyingItem.price);
                 }
             }
-            else
+            if(isSelling && inventoryManager.toolbar.selectedSlot != null && inventoryManager.toolbar.selectedSlot.itemData.isSellable)
+            {
+                GameManager.instance.moneyManager.AddMoney(inventoryManager.toolbar.selectedSlot.itemData.price);
+                inventoryManager.toolbar.selectedSlot.RemoveItem();
+                GameManager.instance.uiManager.RefreshAll();
+            }
+            if(inventoryManager.toolbar.selectedSlot.itemData != null)
             {
                 Vector3Int pos = new Vector3Int((int)(transform.position.x),
                 (int)(transform.position.y),

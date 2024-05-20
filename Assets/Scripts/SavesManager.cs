@@ -28,6 +28,36 @@ public class TileSaveData
     }
 }
 
+
+[System.Serializable]
+public class PlayerSaveData
+{
+    public Vector3 position;
+
+    public PlayerSaveData(Vector3 position)
+    {
+        this.position = position;
+    }
+}
+
+[System.Serializable]
+public class GameObjectSaveData
+{
+    public Vector3 position;
+    public string type;
+    public string specificType;
+
+    public GameObjectSaveData(Vector3 position, string type, string specificType)
+    {
+        this.position = position;
+        this.type = type;
+        this.specificType = specificType;
+    }
+}
+
+
+
+
 [System.Serializable]
 public class SaveData
 {
@@ -37,17 +67,22 @@ public class SaveData
     public List<TileSaveData> waterTiles;
     public List<TileSaveData> landTiles;
     public List<TileSaveData> groundObjectsTiles;
+    public PlayerSaveData playerData;
+    public List<GameObjectSaveData> gameObjectsData;
 
-    public SaveData(Inventory backpack,int money, Inventory toolbar)
+    public SaveData(Inventory backpack, int money, Inventory toolbar, PlayerSaveData playerData)
     {
         this.backpack = backpack;
         this.toolbar = toolbar;
         this.money = money;
+        this.playerData = playerData;
         waterTiles = new List<TileSaveData>();
         landTiles = new List<TileSaveData>();
         groundObjectsTiles = new List<TileSaveData>();
+        gameObjectsData = new List<GameObjectSaveData>();
     }
 }
+
 
 public class SavesManager : MonoBehaviour
 {

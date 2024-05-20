@@ -1550,7 +1550,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0022823513, y: -0.006205529}
+  m_Offset: {x: -0.0022823364, y: -0.21840987}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1561,7 +1561,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.47505367, y: 0.6497975}
+  m_Size: {x: 0.31998125, y: 0.22538882}
   m_EdgeRadius: 0
 --- !u!50 &166181370
 Rigidbody2D:
@@ -1604,7 +1604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSize: 6
   zoomedSize: 40
-  isBuying: 0
+  isSelling: 0
   inventoryManager: {fileID: 1175181604}
   mainCamera: {fileID: 0}
   plantStepsConfigurations: {fileID: 11400000, guid: e9dbe8af267de4941af05ffdcb4a2d18, type: 2}
@@ -20279,6 +20279,13 @@ MonoBehaviour:
   player: {fileID: 166181371}
   menuController: {fileID: 0}
   moneyManager: {fileID: 0}
+  appleTreePrefab: {fileID: 5316261189150829999, guid: dff838ffb3fe9854c918758077029bd2, type: 3}
+  oakTreePrefab: {fileID: 7452439327808388589, guid: 5761ab38176b4d944b0d23a5d99c4658, type: 3}
+  pineTreePrefab: {fileID: 5771917917864973933, guid: 532867cb6fb1f364089177e1be21dd54, type: 3}
+  gardenBedPrefab: {fileID: 2228700821414210263, guid: 91c6b12d9456646449797e43ec5b9a0c, type: 3}
+  bush1Prefab: {fileID: 2026377171537484992, guid: 62df4d7875208354099ded1bec39d480, type: 3}
+  bush2Prefab: {fileID: 4608464208912615070, guid: 4bdc74b6b05970b4aa45168a69d1e898, type: 3}
+  shopPrefab: {fileID: 5615716268444129442, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
 --- !u!114 &1175181601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25215,11 +25222,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopArea
       objectReference: {fileID: 0}
+    - target: {fileID: 5615716268444129442, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4557489776561502366, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1840421070}
   m_SourcePrefab: {fileID: 100100000, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
+--- !u!1 &1840421069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4557489776561502366, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
+  m_PrefabInstance: {fileID: 1840421068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1840421070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840421069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ade7b807dd8edf4f82a86e1c6960da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1951051729
 PrefabInstance:
   m_ObjectHideFlags: 0
