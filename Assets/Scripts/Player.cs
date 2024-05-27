@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public float defaultSize; 
     public float zoomedSize;
 
+    public string namePlayer;
+
     public bool isSelling;
 
     public ShopItemData buyingItem;
@@ -107,7 +109,7 @@ public class Player : MonoBehaviour
                         }
                     }
                 }
-                if (itemData.itemType == ItemType.Carrot)
+                if (itemData.itemType == ItemType.Fertilizer)
                 {
                     if (growingPlants.Count != 0)
                     {
@@ -210,5 +212,11 @@ public class Player : MonoBehaviour
             }
         }
 
+    }
+
+    public void SetName(string name)
+    {
+        this.name = name;
+        GameManager.instance.uiManager.UpdatePlayerName();
     }
 }

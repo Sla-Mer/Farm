@@ -33,10 +33,12 @@ public class TileSaveData
 public class PlayerSaveData
 {
     public Vector3 position;
+    public string playerName;
 
-    public PlayerSaveData(Vector3 position)
+    public PlayerSaveData(Vector3 position, string playerName)
     {
         this.position = position;
+        this.playerName = playerName;
     }
 }
 

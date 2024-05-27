@@ -12,6 +12,8 @@ public class UI_Manager : MonoBehaviour
 
     public TextMeshProUGUI moneyText;
 
+    public TextMeshProUGUI playerNameText;
+
     public List<Inventory_UI> inventoryUIs;
 
     public static Slot_UI draggedSlot;
@@ -100,5 +102,10 @@ public class UI_Manager : MonoBehaviour
     private void UpdateMoneyLabel(int amount)
     {
         moneyText.text = amount.ToString();
+    }
+
+    public void UpdatePlayerName()
+    {
+        playerNameText.text = GameManager.instance.player.name;
     }
 }

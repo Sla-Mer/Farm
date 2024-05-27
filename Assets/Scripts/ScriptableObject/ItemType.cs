@@ -11,5 +11,6 @@
     Melon = 8,
     Potato = 9,
     Pumpkin = 10,
-    Tomato = 11
+    Tomato = 11,
+    Fertilizer = 12
 }

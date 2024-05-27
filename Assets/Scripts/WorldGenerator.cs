@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -32,11 +33,12 @@ public class WorldGenerator : MonoBehaviour
 
     void Start()
     {
-        //GenerateWorld();
-        //PlaceTrees();
-        //PlaceBushes();
-        //PlaceFlowers();
-        //PlaceShop();
+        GenerateWorld();
+        PlaceTrees();
+        PlaceBushes();
+        PlaceFlowers();
+        PlaceShop();
+        GiveStartInventory();
     }
 
     void GenerateWorld()
@@ -190,7 +192,6 @@ public class WorldGenerator : MonoBehaviour
             }
         }
     }
-
     void PlaceShop()
     {
         Vector3Int shopPosition = Vector3Int.zero;
@@ -198,14 +199,11 @@ public class WorldGenerator : MonoBehaviour
         {
             for (int y = -height / 2; y < height / 2; y++)
             {
-                if (landTilemap.GetTile(new Vector3Int(x, y, 0)) == grassTile && waterTilemap.GetTile(new Vector3Int(x, y, 0)) == null)
+                Vector3Int position = new Vector3Int(x, y, 0);
+                if (IsValidShopPosition(position))
                 {
-                    float distanceToOrigin = Vector2.Distance(Vector2.zero, new Vector2(x, y));
-                    if (distanceToOrigin <= 100)
-                    {
-                        shopPosition = new Vector3Int(x, y, 0);
-                        break;
-                    }
+                    shopPosition = position;
+                    break;
                 }
             }
             if (shopPosition != Vector3Int.zero)
@@ -223,6 +221,30 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
+    bool IsValidShopPosition(Vector3Int position)
+    {
+        if (landTilemap.GetTile(position) != grassTile || waterTilemap.GetTile(position) != null)
+            return false;
+
+        int radius = 3;
+        for (int dx = -radius; dx <= radius; dx++)
+        {
+            for (int dy = -radius; dy <= radius; dy++)
+            {
+                Vector3Int checkPosition = new Vector3Int(position.x + dx, position.y + dy, 0);
+                if (landTilemap.GetTile(checkPosition) != grassTile)
+                    return false;
+            }
+        }
+
+        // ƒополнительна€ проверка на рассто€ние до центра
+        float distanceToOrigin = Vector2.Distance(Vector2.zero, new Vector2(position.x, position.y));
+        if (distanceToOrigin > 100)
+            return false;
+
+        return true;
+    }
+
     void ClearArea(Vector3Int center, int radius)
     {
         Vector3 centerWorldPos = groundObjectsTilemap.GetCellCenterWorld(center);
@@ -232,5 +254,20 @@ public class WorldGenerator : MonoBehaviour
         {
             Destroy(collider.gameObject);
         }
+    }
+
+    public void GiveStartInventory()
+    {
+        InventoryManager inventory = GameManager.instance.inventoryManager;
+        inventory.Add("Backpack", GameManager.instance.itemManager.GetItemByName("Hoe"));
+        inventory.Add("Backpack", GameManager.instance.itemManager.GetItemByName("Shovel"));
+        for (int i = 0; i < 4; i++)
+        {
+            inventory.Add("Backpack", GameManager.instance.itemManager.GetItemByName("Carrot Seeds"));
+        }
+
+        GameManager.instance.player.SetName("Farmer");
+
+        GameManager.instance.moneyManager.AddMoney(50);
     }
 }
