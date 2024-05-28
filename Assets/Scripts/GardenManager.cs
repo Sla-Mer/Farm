@@ -11,16 +11,8 @@ public class GardenManager : MonoBehaviour
 
     public void CreateGardenBed(Vector3Int position)
     {
-        // ѕровер€ем, есть ли уже гр€дка на данной позиции
         if (!gardenBeds.ContainsKey(position))
         {
-            //Vector3 offset = new Vector3(0.5f, 0.5f, 0);
-
-            //Vector3 spawnPos = position + offset;
-            Debug.Log($"Key Position for this bed is {position}");
-
-            Debug.Log($"Soawn Position for this bed is {position}");
-
             GameObject bed = Instantiate(bedPrefab, position, Quaternion.identity);
 
             gardenBeds.Add(position, bed);
@@ -32,5 +24,13 @@ public class GardenManager : MonoBehaviour
         Debug.Log($"Position for destroy: {position}");
         Destroy(gardenBeds[position]);
         gardenBeds.Remove(position);
+    }
+
+    public void AddBed(Vector3Int position, GameObject bed)
+    {
+        if (!gardenBeds.ContainsKey(position))
+        {
+            gardenBeds.Add(position, bed);
+        }
     }
 }

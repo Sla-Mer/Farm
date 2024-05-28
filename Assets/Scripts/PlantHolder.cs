@@ -9,7 +9,7 @@ public  class PlantHolder : MonoBehaviour
 {
     public PlantableSteps plantableSteps;
 
-    private int stepIndex;
+    public int stepIndex;
 
     public SpriteRenderer spriteRenderer;
 
@@ -32,8 +32,7 @@ public  class PlantHolder : MonoBehaviour
         yield return new WaitForSeconds(currentStep.stepTime);
         spriteRenderer.sprite = currentStep.stepIcon;
         stepIndex++;
-
-        if(stepIndex < plantableSteps.steps.Count)
+        if (stepIndex < plantableSteps.steps.Count)
         {
             StartCoroutine(MoveToNextStepWithDelay());
         }

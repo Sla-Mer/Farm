@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
                     GameManager.instance.moneyManager.RemoveMoney(buyingItem.price);
                 }
             }
-            if(isSelling && inventoryManager.toolbar.selectedSlot != null && inventoryManager.toolbar.selectedSlot.itemData.isSellable)
+            if(isSelling && inventoryManager.toolbar.selectedSlot != null && inventoryManager.toolbar.selectedSlot.itemData != null && inventoryManager.toolbar.selectedSlot.itemData.isSellable)
             {
                 GameManager.instance.moneyManager.AddMoney(inventoryManager.toolbar.selectedSlot.itemData.price);
                 inventoryManager.toolbar.selectedSlot.RemoveItem();
@@ -216,7 +216,7 @@ public class Player : MonoBehaviour
 
     public void SetName(string name)
     {
-        this.name = name;
+        namePlayer = name;
         GameManager.instance.uiManager.UpdatePlayerName();
     }
 }

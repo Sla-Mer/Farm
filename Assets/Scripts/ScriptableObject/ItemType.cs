@@ -12,5 +12,6 @@
     Potato = 9,
     Pumpkin = 10,
     Tomato = 11,
-    Fertilizer = 12
+    Fertilizer = 12,
+    None = 13
 }

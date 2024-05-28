@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -48,6 +49,8 @@ public class GameManager : MonoBehaviour
     public GameObject flower7Prefab;
 
     public GameObject shopPrefab;
+
+    public PlantableStepsConfigurations plantStepsConfigurations;
 
     private void Awake()
     {
@@ -135,11 +138,40 @@ public class GameManager : MonoBehaviour
             foreach (GameObject obj in FindObjectsOfType<GameObject>())
             {
                 // Сохранение объектов, которые нужно сохранить, например, деревья, кусты, грядки
-                if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("Flower") || obj.CompareTag("GardenBed") || obj.CompareTag("Shop"))
+                if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("Flower") || obj.CompareTag("Shop"))
                 {
                     string specificType = obj.name; // Используем имя объекта как уникальный идентификатор типа
                     GameObjectSaveData objSaveData = new GameObjectSaveData(obj.transform.position, obj.tag, specificType);
                     saveData.gameObjectsData.Add(objSaveData);
+                }
+                else if(obj.CompareTag("GardenBed"))
+                {
+                    if(obj.TryGetComponent(out PlantHolder plantHolder))
+                    {
+                        if (plantHolder.plantableSteps != null)
+                        {
+                            ItemType type = plantHolder.plantableSteps.itemType;
+                            bool isFertilized = plantHolder.isFertilized;
+                            bool isReady = plantHolder.readyToHarvest;
+                            Debug.Log($" Type {type} statuses: IsFert: {isFertilized} and isready{isReady}, stepIndex = {plantHolder.stepIndex}");
+                            BedData bed = new BedData(obj.transform.position, type, isFertilized, isReady, plantHolder.stepIndex);
+                            Debug.Log($" BedData {obj.transform.position}, Type: {bed.itemType} statuses: IsFert: {bed.isFertilized} and isready{bed.isReady}, stepIndex = {bed.stepIndex}");
+                            saveData.gardenBeds.Add(bed);
+                        }
+                        else
+                        {
+                            bool isFertilized = plantHolder.isFertilized;
+                            bool isReady = plantHolder.readyToHarvest;
+
+                            BedData bed = new BedData(obj.transform.position, ItemType.None, isFertilized, isReady, plantHolder.stepIndex);
+                            saveData.gardenBeds.Add(bed);
+                        }
+                       
+                    }
+                    else
+                    {
+                        Debug.Log("No component PlantHolder!");
+                    }
                 }
             }
 
@@ -194,7 +226,6 @@ public class GameManager : MonoBehaviour
 
                 ClearObjects();
 
-                // Восстановление игровых объектов
                 foreach (GameObjectSaveData objSaveData in saveData.gameObjectsData)
                 {
                     GameObject prefab = GetPrefabByType(objSaveData.type, objSaveData.specificType);
@@ -204,7 +235,46 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
-                // Обновляем UI
+                foreach (BedData bed in saveData.gardenBeds)
+                {
+                    GameObject bedObj = Instantiate(gardenBedPrefab, bed.position, Quaternion.identity);
+                    
+                    if (bedObj.TryGetComponent(out PlantHolder plantHolder))
+                    {
+                        Vector3Int pos = new Vector3Int((int)(bedObj.transform.position.x),
+                        (int)(bedObj.transform.position.y),
+                        0);
+                        gardenManager.AddBed(pos, bedObj);
+                        plantHolder.isFertilized = bed.isFertilized;
+                        plantHolder.readyToHarvest = bed.isReady;
+                        plantHolder.stepIndex = bed.stepIndex;
+
+                        if (bed.itemType != ItemType.None && !bed.isReady)
+                        {
+                            PlantableSteps plantableSteps = plantStepsConfigurations.stepsConfigurations.FirstOrDefault(stepsConfig => stepsConfig.itemType == bed.itemType);
+
+                            plantHolder.plantableSteps = plantableSteps;
+
+                            StepData currentStep = plantableSteps.steps[plantHolder.stepIndex - 1];
+                            plantHolder.spriteRenderer.sprite = currentStep.stepIcon;
+
+                            plantHolder.StartGrow();
+                        }
+                        else if (bed.isReady)
+                        {
+                            PlantableSteps plantableSteps = plantStepsConfigurations.stepsConfigurations.FirstOrDefault(stepsConfig => stepsConfig.itemType == bed.itemType);
+
+                            plantHolder.plantableSteps = plantableSteps;
+
+                            StepData currentStep = plantableSteps.steps[plantHolder.stepIndex];
+
+                            plantHolder.spriteRenderer.sprite = currentStep.stepIcon;
+                        }
+                    }
+                }
+
+
+                    // Обновляем UI
                 GameManager.instance.uiManager.RefreshAll();
 
                 Debug.Log("Game loaded.");

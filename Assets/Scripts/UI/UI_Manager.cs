@@ -106,6 +106,6 @@ public class UI_Manager : MonoBehaviour
 
     public void UpdatePlayerName()
     {
-        playerNameText.text = GameManager.instance.player.name;
+        playerNameText.text = GameManager.instance.player.namePlayer;
     }
 }

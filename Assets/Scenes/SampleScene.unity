@@ -20370,6 +20370,7 @@ MonoBehaviour:
   flower6Prefab: {fileID: 8848231429780864719, guid: fe1cba28f19c02644a74c2d171bb10f5, type: 3}
   flower7Prefab: {fileID: 3730760495938819302, guid: edcde4607cfec7f40b002ad869c604b5, type: 3}
   shopPrefab: {fileID: 5615716268444129442, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
+  plantStepsConfigurations: {fileID: 11400000, guid: e9dbe8af267de4941af05ffdcb4a2d18, type: 2}
 --- !u!114 &1175181601
 MonoBehaviour:
   m_ObjectHideFlags: 0

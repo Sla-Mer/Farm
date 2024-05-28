@@ -57,6 +57,24 @@ public class GameObjectSaveData
     }
 }
 
+[System.Serializable]
+public class BedData
+{
+    public Vector3 position;
+    public ItemType itemType;
+    public bool isFertilized;
+    public bool isReady;
+    public int stepIndex;
+
+    public BedData(Vector3 position, ItemType itemType, bool isFertilized, bool isReady, int index)
+    {
+        this.position = position;
+        this.itemType = itemType;
+        this.isFertilized = isFertilized;
+        this.isReady = isReady;
+        this.stepIndex = index;
+    }
+}
 
 
 
@@ -71,6 +89,7 @@ public class SaveData
     public List<TileSaveData> groundObjectsTiles;
     public PlayerSaveData playerData;
     public List<GameObjectSaveData> gameObjectsData;
+    public List<BedData> gardenBeds;
 
     public SaveData(Inventory backpack, int money, Inventory toolbar, PlayerSaveData playerData)
     {
@@ -82,6 +101,7 @@ public class SaveData
         landTiles = new List<TileSaveData>();
         groundObjectsTiles = new List<TileSaveData>();
         gameObjectsData = new List<GameObjectSaveData>();
+        gardenBeds = new List<BedData>();
     }
 }
 
