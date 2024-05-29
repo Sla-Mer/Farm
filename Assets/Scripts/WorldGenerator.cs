@@ -33,12 +33,25 @@ public class WorldGenerator : MonoBehaviour
 
     void Start()
     {
-        GenerateWorld();
-        PlaceTrees();
-        PlaceBushes();
-        PlaceFlowers();
-        PlaceShop();
-        GiveStartInventory();
+        GameData gameData = SaveSystem.LoadGame();
+
+        if (gameData != null)
+        {
+            if(gameData.IsNewGame)
+            {
+                seed = gameData.WorldSeed;
+                GenerateWorld();
+                PlaceTrees();
+                PlaceBushes();
+                PlaceFlowers();
+                PlaceShop();
+                GiveStartInventory();
+
+                GameManager.instance.player.SetName(gameData.PlayerName);
+
+                GameManager.instance.SaveGame();
+            }
+        }
     }
 
     void GenerateWorld()

@@ -14,7 +14,7 @@ public class Inventory_UI : MonoBehaviour
 
     private Inventory inventory;
 
-    private void Start()
+    private void Awake()
     {
         inventory = GameManager.instance.player.inventoryManager.GetInventoryByName(inventoryName);
         SetupSlots();

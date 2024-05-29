@@ -15,11 +15,11 @@ public class GameManager : MonoBehaviour
 
     public TilemapManager tilemapManager;
 
+    public UI_Manager uiManager;
+
     public SavesManager saveManager;
 
     public InventoryManager inventoryManager;
-
-    public UI_Manager uiManager;
 
     public GardenManager gardenManager;
 
@@ -63,7 +63,11 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        DontDestroyOnLoad(this.gameObject);
+        player = FindObjectOfType<Player>();
+
+        inventoryManager = GetComponent<InventoryManager>();
+
+        uiManager = GetComponent<UI_Manager>();
 
         itemManager = GetComponent<ItemManager>();
 
@@ -73,10 +77,6 @@ public class GameManager : MonoBehaviour
 
         saveManager = GetComponent<SavesManager>();
 
-        inventoryManager = GetComponent<InventoryManager>();
-
-        uiManager = GetComponent<UI_Manager>();
-
         gardenManager = GetComponent<GardenManager>();
 
         menuController = GetComponent<MenuController>();
@@ -85,7 +85,21 @@ public class GameManager : MonoBehaviour
 
         moneyManager = GetComponent<MoneyManager>();
 
-        player = FindObjectOfType<Player>();
+        moneyManager.AddMoney(10000);
+    }
+
+    private void Start()
+    {
+        GameData gameData = SaveSystem.LoadGame();
+        if (gameData != null)
+        {
+            if (!gameData.IsNewGame)
+            {
+                uiManager.ToggleInventoryUI();
+                LoadGame();
+                uiManager.RefreshAll();
+            }
+        }
     }
 
     public void SaveGame()
@@ -97,7 +111,8 @@ public class GameManager : MonoBehaviour
 
             int money = moneyManager.GetBalance();
             Vector3 playerPosition = player.transform.position;
-            PlayerSaveData playerData = new PlayerSaveData(playerPosition, player.name);
+
+            PlayerSaveData playerData = new PlayerSaveData(playerPosition, player.namePlayer);
 
             SaveData saveData = new SaveData(backpack, money, toolbar, playerData);
 
@@ -207,6 +222,9 @@ public class GameManager : MonoBehaviour
                 player.transform.position = saveData.playerData.position;
                 player.SetName(saveData.playerData.playerName);
 
+                moneyManager.ClearBalance();
+                moneyManager.AddMoney(saveData.money);
+                
                 tilemapManager.ClearAllTilemaps();
 
                 foreach (TileSaveData tileSaveData in saveData.waterTiles)
@@ -272,9 +290,6 @@ public class GameManager : MonoBehaviour
                         }
                     }
                 }
-
-
-                    // Обновляем UI
                 GameManager.instance.uiManager.RefreshAll();
 
                 Debug.Log("Game loaded.");

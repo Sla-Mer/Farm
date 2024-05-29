@@ -20348,9 +20348,9 @@ MonoBehaviour:
   itemManager: {fileID: 0}
   tileManager: {fileID: 0}
   tilemapManager: {fileID: 0}
+  uiManager: {fileID: 0}
   saveManager: {fileID: 0}
   inventoryManager: {fileID: 0}
-  uiManager: {fileID: 0}
   gardenManager: {fileID: 0}
   worldGenerator: {fileID: 0}
   player: {fileID: 166181371}
@@ -27242,6 +27242,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1175181606}
+    - target: {fileID: 5937121673372913605, guid: 6ad755596470eea4d93962b223196732, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 6190870057525993145, guid: 6ad755596470eea4d93962b223196732, type: 3}
       propertyPath: m_Pivot.x
       value: 0

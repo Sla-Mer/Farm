@@ -25,4 +25,9 @@ public class MoneyManager : MonoBehaviour
     {
         return money;
     }
+
+    public void ClearBalance()
+    {
+        money = 0;
+    }
 }

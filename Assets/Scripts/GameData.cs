@@ -9,10 +9,10 @@ using UnityEngine;
 public class GameData
 {
     public string PlayerName;
-    public string WorldSeed;
+    public int WorldSeed;
     public bool IsNewGame;
 
-    public GameData(string playerName, string worldSeed, bool isNewGame)
+    public GameData(string playerName, int worldSeed, bool isNewGame)
     {
         PlayerName = playerName;
         WorldSeed = worldSeed;

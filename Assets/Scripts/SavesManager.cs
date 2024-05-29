@@ -110,7 +110,7 @@ public class SavesManager : MonoBehaviour
 {
     private static string savePath;
 
-    private void Start()
+    private void Awake()
     {
         savePath = Application.persistentDataPath + "/save.json";
     }
