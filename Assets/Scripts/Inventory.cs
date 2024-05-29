@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Inventory;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public class Inventory

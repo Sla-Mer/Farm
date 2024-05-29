@@ -25392,7 +25392,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840379294}
   m_CullTransparentMesh: 1
---- !u!1001 &1840421068
+--- !u!1001 &1856308270
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -25402,11 +25402,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3043741008050706061, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.28
+      value: 14.46
       objectReference: {fileID: 0}
     - target: {fileID: 3043741008050706061, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.94
+      value: -1.16
       objectReference: {fileID: 0}
     - target: {fileID: 3043741008050706061, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -25443,6 +25443,10 @@ PrefabInstance:
     - target: {fileID: 5615716268444129442, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
       propertyPath: m_Name
       value: ShopArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6872158455254700270, guid: 5e38a5b825e9f8a41b4a43162dea62d4, type: 3}
+      propertyPath: MaxDistance
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28094,5 +28098,5 @@ SceneRoots:
   - {fileID: 3422900667494852882}
   - {fileID: 9206019541637402111}
   - {fileID: 8455732433856234200}
-  - {fileID: 1840421068}
   - {fileID: 4684669344876515131}
+  - {fileID: 1856308270}
