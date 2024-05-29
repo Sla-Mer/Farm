@@ -19,13 +19,13 @@ MonoBehaviour:
   - stepIcon: {fileID: -1757539683, guid: 2375ee378b673c64687624073dce3513, type: 3}
     stepTime: 3
   - stepIcon: {fileID: 1346866995, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 7
+    stepTime: 8
   - stepIcon: {fileID: -595994960, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 7
+    stepTime: 9
   - stepIcon: {fileID: -578711377, guid: 2375ee378b673c64687624073dce3513, type: 3}
     stepTime: 7
   - stepIcon: {fileID: -1790182900, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 7
+    stepTime: 10
   crop: {fileID: 5947082386196061195, guid: 8f20fbbcabe480048a803c1a5c908730, type: 3}
   cropCount: 1
   fertilizedCount: 2

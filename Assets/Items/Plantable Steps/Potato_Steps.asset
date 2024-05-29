@@ -17,15 +17,15 @@ MonoBehaviour:
   - stepIcon: {fileID: -557108966, guid: 2375ee378b673c64687624073dce3513, type: 3}
     stepTime: 0
   - stepIcon: {fileID: 1568448035, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 3
+    stepTime: 5
   - stepIcon: {fileID: 1668404428, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 7
+    stepTime: 10
   - stepIcon: {fileID: -1895398094, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 7
+    stepTime: 10
   - stepIcon: {fileID: 1064018255, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 7
+    stepTime: 5
   - stepIcon: {fileID: -688102766, guid: 2375ee378b673c64687624073dce3513, type: 3}
-    stepTime: 7
+    stepTime: 10
   crop: {fileID: 2513043183230791017, guid: c51339fe974c5cf4d954d92cb3ea4cbb, type: 3}
   cropCount: 1
-  fertilizedCount: 2
+  fertilizedCount: 3
