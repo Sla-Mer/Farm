@@ -246,16 +246,19 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+                gardenManager.ClearBeds();
+
                 foreach (BedData bed in saveData.gardenBeds)
                 {
                     GameObject bedObj = Instantiate(gardenBedPrefab, bed.position, Quaternion.identity);
-                    
-                    if (bedObj.TryGetComponent(out PlantHolder plantHolder))
-                    {
-                        Vector3Int pos = new Vector3Int((int)(bedObj.transform.position.x),
+                    Vector3Int pos = new Vector3Int((int)(bedObj.transform.position.x),
                         (int)(bedObj.transform.position.y),
                         0);
-                        gardenManager.AddBed(pos, bedObj);
+                    gardenManager.AddBed(pos, bedObj);
+
+                    if (bedObj.TryGetComponent(out PlantHolder plantHolder))
+                    {
+                        
                         plantHolder.isFertilized = bed.isFertilized;
                         plantHolder.readyToHarvest = bed.isReady;
                         plantHolder.stepIndex = bed.stepIndex;

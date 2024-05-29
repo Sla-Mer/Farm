@@ -32,4 +32,13 @@ public class GardenManager : MonoBehaviour
             gardenBeds.Add(position, bed);
         }
     }
+
+    public void ClearBeds()
+    {
+        foreach (var bed in gardenBeds.Values)
+        {
+            Destroy(bed);
+        }
+        gardenBeds.Clear();
+    }
 }

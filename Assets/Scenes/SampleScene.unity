@@ -5044,6 +5044,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &891328427 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3238139510059485910, guid: 9de6afa3e92ce46469d424f7a05f8e06, type: 3}
+  m_PrefabInstance: {fileID: 891328423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &902011168
 GameObject:
   m_ObjectHideFlags: 0
@@ -20215,6 +20226,7 @@ MonoBehaviour:
   settingsMenuUI: {fileID: 891328425}
   volumeSlider: {fileID: 891328426}
   musicSource: {fileID: 1764370568}
+  muteToggle: {fileID: 891328427}
 --- !u!114 &1175181607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23973,7 +23985,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.05
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

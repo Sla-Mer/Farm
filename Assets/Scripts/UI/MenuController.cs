@@ -9,7 +9,9 @@ public class MenuController : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject settingsMenuUI;
     public Slider volumeSlider; 
-    public AudioSource musicSource; 
+    public AudioSource musicSource;
+
+    public Toggle muteToggle;
 
     private bool isPaused = false;
 
@@ -67,6 +69,6 @@ public class MenuController : MonoBehaviour
 
     public void MuteAudio()
     {
-        musicSource.volume = 0;
+        musicSource.mute = muteToggle.isOn;
     }
 }
