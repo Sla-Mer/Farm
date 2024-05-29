@@ -79,7 +79,7 @@ public class TilemapManager : MonoBehaviour
         else if (tile == bedTile)
             return TileType.Bed;
         else
-            return TileType.Grass; // Default to grass if tile not found
+            return TileType.Grass; 
     }
 
     public void ClearTilemap(Tilemap tilemap)

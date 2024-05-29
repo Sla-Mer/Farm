@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public GameObject flower7Prefab;
 
     public GameObject shopPrefab;
+    public GameObject homePrefab;
 
     public PlantableStepsConfigurations plantStepsConfigurations;
 
@@ -84,8 +85,6 @@ public class GameManager : MonoBehaviour
         worldGenerator = GetComponent<WorldGenerator>();
 
         moneyManager = GetComponent<MoneyManager>();
-
-        moneyManager.AddMoney(10000);
     }
 
     private void Start()
@@ -149,13 +148,12 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            // Сохранение игровых объектов
+          
             foreach (GameObject obj in FindObjectsOfType<GameObject>())
             {
-                // Сохранение объектов, которые нужно сохранить, например, деревья, кусты, грядки
-                if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("Flower") || obj.CompareTag("Shop"))
+                if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("Flower") || obj.CompareTag("Shop") || obj.CompareTag("PlayerHome"))
                 {
-                    string specificType = obj.name; // Используем имя объекта как уникальный идентификатор типа
+                    string specificType = obj.name; 
                     GameObjectSaveData objSaveData = new GameObjectSaveData(obj.transform.position, obj.tag, specificType);
                     saveData.gameObjectsData.Add(objSaveData);
                 }
@@ -167,10 +165,8 @@ public class GameManager : MonoBehaviour
                         {
                             ItemType type = plantHolder.plantableSteps.itemType;
                             bool isFertilized = plantHolder.isFertilized;
-                            bool isReady = plantHolder.readyToHarvest;
-                            Debug.Log($" Type {type} statuses: IsFert: {isFertilized} and isready{isReady}, stepIndex = {plantHolder.stepIndex}");
+                            bool isReady = plantHolder.readyToHarvest;   
                             BedData bed = new BedData(obj.transform.position, type, isFertilized, isReady, plantHolder.stepIndex);
-                            Debug.Log($" BedData {obj.transform.position}, Type: {bed.itemType} statuses: IsFert: {bed.isFertilized} and isready{bed.isReady}, stepIndex = {bed.stepIndex}");
                             saveData.gardenBeds.Add(bed);
                         }
                         else
@@ -190,7 +186,6 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            // Сохраняем игру
             saveManager.SaveGame(saveData);
 
             Debug.Log("Game saved.");
@@ -206,7 +201,6 @@ public class GameManager : MonoBehaviour
     {
         if (saveManager != null && player != null)
         {
-            // Загружаем данные сохранения
             SaveData saveData = saveManager.LoadGame();
 
             if (saveData != null)
@@ -218,7 +212,6 @@ public class GameManager : MonoBehaviour
                 AddItemsToPlayerInventory(saveData.backpack, "Backpack");
                 AddItemsToPlayerInventory(saveData.toolbar, "Toolbar");
 
-                // Восстановление позиции игрока
                 player.transform.position = saveData.playerData.position;
                 player.SetName(saveData.playerData.playerName);
 
@@ -284,7 +277,7 @@ public class GameManager : MonoBehaviour
 
                             plantHolder.plantableSteps = plantableSteps;
 
-                            StepData currentStep = plantableSteps.steps[plantHolder.stepIndex];
+                            StepData currentStep = plantableSteps.steps[plantHolder.stepIndex - 1];
 
                             plantHolder.spriteRenderer.sprite = currentStep.stepIcon;
                         }
@@ -309,8 +302,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
-            // Сохранение объектов, которые нужно сохранить, например, деревья, кусты, грядки
-            if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("Flower") || obj.CompareTag("GardenBed") || obj.CompareTag("Shop"))
+            if (obj.CompareTag("Tree") || obj.CompareTag("Bush") || obj.CompareTag("Flower") || obj.CompareTag("GardenBed") || obj.CompareTag("Shop") || obj.CompareTag("PlayerHome"))
             {
                 Destroy(obj);
             }
@@ -318,7 +310,6 @@ public class GameManager : MonoBehaviour
     }
     private GameObject GetPrefabByType(string type, string specificType)
     {
-        // Метод для получения префаба по типу и конкретному типу (specificType)
         switch (type)
         {
             case "Tree":
@@ -331,6 +322,8 @@ public class GameManager : MonoBehaviour
                 return gardenBedPrefab;
             case "Shop":
                 return shopPrefab;
+            case "PlayerHome":
+                return homePrefab;
             default:
                 return null;
         }
@@ -338,7 +331,6 @@ public class GameManager : MonoBehaviour
 
     private GameObject GetTreePrefabByName(string name)
     {
-        // Реализуйте логику для возврата префаба дерева по имени
         switch (name)
         {
             case "AppleTree(Clone)":
@@ -354,7 +346,6 @@ public class GameManager : MonoBehaviour
 
     private GameObject GetBushPrefabByName(string name)
     {
-        // Реализуйте логику для возврата префаба куста по имени
         switch (name)
         {
             case "bush1(Clone)":
@@ -368,7 +359,6 @@ public class GameManager : MonoBehaviour
 
     private GameObject GetFlowerPrefabByName(string name)
     {
-        // Реализуйте логику для возврата префаба куста по имени
         switch (name)
         {
             case "flower1(Clone)":

@@ -33,11 +33,9 @@ public class MainMenuManager : MonoBehaviour
         string playerName = inputFieldValidator.GetValidatedPlayerName();
         int worldSeed = inputFieldValidator.GetValidatedSeed();
 
-        // Сохранение данных игрока и сида
         GameData gameData = new GameData(playerName, worldSeed, true);
         SaveSystem.SaveGame(gameData);
 
-        // Запуск сцены игры
         SceneManager.LoadScene("SampleScene");
     }
 

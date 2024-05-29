@@ -74,7 +74,6 @@ public class Player : MonoBehaviour
                     }
                     else if (tileName == "tiles_451" && inventoryManager.toolbar.selectedSlot.itemData.itemType == ItemType.Showel)
                     {
-                        // Создаем грядку с использованием менеджера грядок
                         gardenManager.CreateGardenBed(pos);
                     }
                 }
@@ -149,6 +148,7 @@ public class Player : MonoBehaviour
         {
             mainCamera.orthographicSize = defaultSize;
         }
+            
 
     }
     public void DropItem(Item item)

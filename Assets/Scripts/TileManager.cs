@@ -30,7 +30,6 @@ public class TileManager : MonoBehaviour
                 }
                 else
                 {
-                    // Если тайл не является RuleTile, возвращаем его имя
                     return tile.name;
                 }
             }

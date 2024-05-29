@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Movement : MonoBehaviour
 {
-    public float speed;
+    public float currentSpeed;
+
+    public float walkSpeed;
+
+    public float runSpeed;
 
     public Animator animator;
 
@@ -13,6 +17,14 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            currentSpeed = runSpeed;
+        }
+        else
+        {
+            currentSpeed = walkSpeed;
+        }
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -24,7 +36,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += direction.normalized * speed * Time.deltaTime;
+        transform.position += direction.normalized * currentSpeed * Time.deltaTime;
     }
 
     void AnimateMovement(Vector3 direction)

@@ -23,6 +23,7 @@ public class WorldGenerator : MonoBehaviour
     public GameObject[] bushPrefabs;
     public GameObject[] flowerPrefabs;
     public GameObject shopPrefab;
+    public GameObject housePrefab;
     public float flowerSpawnChance = 5f;
     public float treeSpawnChance = 50f;
     public float bushSpawnChance = 25f;
@@ -37,7 +38,7 @@ public class WorldGenerator : MonoBehaviour
 
         if (gameData != null)
         {
-            if(gameData.IsNewGame)
+            if (gameData.IsNewGame)
             {
                 seed = gameData.WorldSeed;
                 GenerateWorld();
@@ -45,13 +46,17 @@ public class WorldGenerator : MonoBehaviour
                 PlaceBushes();
                 PlaceFlowers();
                 PlaceShop();
+                PlacePlayerHouseAndPlayer();
                 GiveStartInventory();
 
+                GameManager.instance.uiManager.ToggleInventoryUI();
+                
                 GameManager.instance.player.SetName(gameData.PlayerName);
 
                 GameManager.instance.SaveGame();
             }
         }
+
     }
 
     void GenerateWorld()
@@ -239,7 +244,7 @@ public class WorldGenerator : MonoBehaviour
         if (landTilemap.GetTile(position) != grassTile || waterTilemap.GetTile(position) != null)
             return false;
 
-        int radius = 3;
+        int radius = 5;
         for (int dx = -radius; dx <= radius; dx++)
         {
             for (int dy = -radius; dy <= radius; dy++)
@@ -250,7 +255,6 @@ public class WorldGenerator : MonoBehaviour
             }
         }
 
-        // ƒополнительна€ проверка на рассто€ние до центра
         float distanceToOrigin = Vector2.Distance(Vector2.zero, new Vector2(position.x, position.y));
         if (distanceToOrigin > 100)
             return false;
@@ -278,9 +282,95 @@ public class WorldGenerator : MonoBehaviour
         {
             inventory.Add("Backpack", GameManager.instance.itemManager.GetItemByName("Carrot Seeds"));
         }
-
-        GameManager.instance.player.SetName("Farmer");
-
         GameManager.instance.moneyManager.AddMoney(50);
+    }
+
+
+    void PlacePlayerHouseAndPlayer()
+    {
+        Vector3Int housePosition = Vector3Int.zero;
+        int searchRadius = 30;
+
+        for (int x = -searchRadius; x <= searchRadius; x++)
+        {
+            for (int y = -searchRadius; y <= searchRadius; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                if (IsValidHousePosition(position))
+                {
+                    housePosition = position;
+                    break;
+                }
+            }
+            if (housePosition != Vector3Int.zero)
+                break;
+        }
+
+        if (housePosition != Vector3Int.zero)
+        {
+            ClearArea(housePosition, 5);
+            Instantiate(housePrefab, groundObjectsTilemap.GetCellCenterWorld(housePosition), Quaternion.identity);
+
+            Vector3Int playerPosition = GetNearbyGrassPosition(housePosition);
+            if (playerPosition != Vector3Int.zero)
+            {
+                Player player = FindObjectOfType<Player>();
+                player.transform.position = playerPosition;
+            }
+            else
+            {
+                Debug.LogWarning("Unable to find a suitable location for the player.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Unable to find a suitable location for the player house.");
+        }
+    }
+
+    bool IsValidHousePosition(Vector3Int position)
+    {
+        if (landTilemap.GetTile(position) != grassTile || waterTilemap.GetTile(position) != null)
+            return false;
+
+        int radius = 4;
+        for (int dx = -radius; dx <= radius; dx++)
+        {
+            for (int dy = -radius; dy <= radius; dy++)
+            {
+                Vector3Int checkPosition = new Vector3Int(position.x + dx, position.y + dy, 0);
+                if (landTilemap.GetTile(checkPosition) != grassTile)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    Vector3Int GetNearbyGrassPosition(Vector3Int housePosition)
+    {
+        int radius = 3;
+        for (int dx = -radius; dx <= radius; dx++)
+        {
+            for (int dy = -radius; dy <= radius; dy++)
+            {
+                Vector3Int position = new Vector3Int(housePosition.x + dx, housePosition.y + dy, 0);
+                if (IsValidPlayerPosition(position))
+                {
+                    return position;
+                }
+            }
+        }
+
+        return Vector3Int.zero;
+    }
+
+    bool IsValidPlayerPosition(Vector3Int position)
+    {
+        if (landTilemap.GetTile(position) == grassTile && waterTilemap.GetTile(position) == null && groundObjectsTilemap.GetTile(position) == null)
+        {
+            return true;
+        }
+        return false;
     }
 }

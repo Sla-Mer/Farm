@@ -78,6 +78,6 @@ public class InputFieldValidator : MonoBehaviour
             }
             return value;
         }
-        return minValue;  // Возвращаем значение по умолчанию, если ввод некорректен
+        return minValue;  
     }
 }
