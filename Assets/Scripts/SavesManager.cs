@@ -108,22 +108,11 @@ public class SaveData
 
 public class SavesManager : MonoBehaviour
 {
-    public static SavesManager instance;
+    private static string savePath;
 
-    private string savePath;
-
-    private void Awake()
+    private void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        savePath = "Saves/save.json";
+        savePath = Application.persistentDataPath + "/save.json";
     }
 
     public void SaveGame(SaveData saveData)

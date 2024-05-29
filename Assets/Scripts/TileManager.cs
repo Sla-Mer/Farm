@@ -9,10 +9,6 @@ public class TileManager : MonoBehaviour
 
     [SerializeField] private Tile bedTile;
 
-    void Start()
-    {
-        
-    }
 
     public void SetInteracted(Vector3Int position)
     {
